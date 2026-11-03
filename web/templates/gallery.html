@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Photographic Archive (100 Slides) | Mr. Tushar Dodia{% endblock %}
+
+{% block content %}
+<!-- Page Hero Banner -->
+<section class="page-hero">
+  <div class="container">
+    <div style="display: inline-flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <img src="/static/img/tushar_dodia/hero_avatar.jpg" alt="Tushar Dodia" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--royal-blue); object-fit: cover;">
+      <div style="font-weight: 700; color: var(--royal-blue); font-size: 0.95rem;">100-Slide Documentary Portfolio &middot; Mr. Tushar Dodia in Action</div>
+    </div>
+    <h1 class="page-hero-title">Visual Evidence of Transformation</h1>
+    <p class="page-hero-subtitle">
+      Explore high-resolution documentary photographs covering corporate bank leadership, university lectures, parenting seminars, and national felicitations across Maharashtra and India.
+    </p>
+  </div>
+</section>
+
+<!-- Gallery Section -->
+<section style="padding: 60px 0 90px; background: #ffffff;">
+  <div class="container">
+    
+    <div class="section-header" style="margin-bottom: 24px;">
+      <h2 class="section-title">Documentary Photo Archive</h2>
+      <p class="section-subtitle">Browse through 100 on-ground documentary slides organized by institutional category.</p>
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="filter-pills-container">
+      <button class="filter-pill active" data-category="all">All Photos (100)</button>
+      <button class="filter-pill" data-category="01_Profile_And_Credentials">Profile &amp; Credentials (2)</button>
+      <button class="filter-pill" data-category="02_Curriculum_And_Training_Topics">Curriculum &amp; Syllabus (4)</button>
+      <button class="filter-pill" data-category="03_Awards_And_Felicitations">Awards &amp; Felicitations (6)</button>
+      <button class="filter-pill" data-category="04_Corporate_And_Bank_Trainings">Bank &amp; Corporate (17)</button>
+      <button class="filter-pill" data-category="05_University_And_College_Lectures">University Lectures (13)</button>
+      <button class="filter-pill" data-category="06_School_And_Student_Workshops">School &amp; Youth (26)</button>
+      <button class="filter-pill" data-category="07_Parenting_And_Community_Seminars">Parenting &amp; Community (23)</button>
+      <button class="filter-pill" data-category="08_Newspaper_Clippings_And_Media">Press &amp; Media (9)</button>
+    </div>
+
+    <!-- Gallery Grid (Loaded dynamically by gallery.js from /api/photos) -->
+    <div id="galleryGrid" class="gallery-grid">
+      <div style="grid-column: 1/-1; text-align: center; padding: 60px 0; color: #64748b;">
+        <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: var(--gold-accent); margin-bottom: 12px; display: block;"></i>
+        Loading photographic archive...
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Fullscreen Lightbox Modal -->
+<div id="lightboxModal" class="lightbox-modal">
+  <div class="lightbox-content-box">
+    <button id="lightboxClose" class="lightbox-close-btn" aria-label="Close lightbox">&times;</button>
+    
+    <div class="lightbox-image-container">
+      <button id="lightboxPrev" class="lightbox-nav-btn lightbox-prev" aria-label="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
+      <img id="lightboxImg" src="" alt="Expanded View" class="lightbox-image">
+      <button id="lightboxNext" class="lightbox-nav-btn lightbox-next" aria-label="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <div class="lightbox-meta">
+      <div id="lightboxPage" style="font-size: 0.78rem; font-weight: 700; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 4px;"></div>
+      <h3 id="lightboxTitle" class="lightbox-title"></h3>
+      <p id="lightboxDesc" class="lightbox-desc"></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/gallery.js"></script>
+{% endblock %}

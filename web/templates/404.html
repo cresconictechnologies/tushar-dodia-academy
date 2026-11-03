@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found | Dodia Academy{% endblock %}
+
+{% block content %}
+<section style="min-height: 70vh; display: flex; align-items: center; justify-content: center; padding: 80px 20px; background: #ffffff; text-align: center;">
+  <div class="container" style="max-width: 600px;">
+    <div style="font-size: 5rem; font-weight: 800; color: var(--royal-blue); line-height: 1; margin-bottom: 12px;">404</div>
+    <h1 style="font-size: 2rem; font-weight: 800; color: var(--royal-navy); margin-bottom: 12px;">Page Not Found</h1>
+    <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 30px;">
+      The page or diagnostic dossier you are looking for has been relocated or is restricted under executive governance.
+    </p>
+    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+      <a href="/" class="btn btn-primary" style="padding: 12px 24px;">
+        <i class="fa-solid fa-house"></i> Return to Home
+      </a>
+      <a href="/assessment" class="btn btn-secondary" style="border: 1px solid var(--royal-blue); color: var(--royal-blue); padding: 12px 24px;">
+        <i class="fa-solid fa-clipboard-check"></i> Diagnostic Simulator
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

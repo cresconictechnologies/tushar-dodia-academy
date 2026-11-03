@@ -1,0 +1,111 @@
+/* Custom Motion & Keyframe Animations */
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.45);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.float-animation {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.glow-animation {
+  animation: pulseGlow 3s infinite;
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #d4af37 0%, #ffffff 50%, #d4af37 100%);
+  background-size: 200% auto;
+  color: #000;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Card hover transitions */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Modal lightbox */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 17, 32, 0.88);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-gold);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: #071120;
+  color: #ffffff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  z-index: 10;
+  transition: transform 0.2s;
+}
+
+.modal-close-btn:hover {
+  transform: scale(1.1);
+}

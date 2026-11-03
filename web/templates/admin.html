@@ -1,0 +1,652 @@
+{% extends "base.html" %}
+
+{% block title %}Executive Diagnostic Command Center | Dodia Academy Admin{% endblock %}
+
+{% block content %}
+<!-- Admin Dashboard Banner -->
+<section style="background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); color: #ffffff; padding: 40px 0; border-bottom: 2px solid var(--saffron-dark);">
+  <div class="container" style="max-width: 1200px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <img src="/static/img/tushar_dodia/hero_avatar.jpg" alt="Tushar Dodia" style="width: 64px; height: 64px; border-radius: 50%; border: 3px solid #fde047; object-fit: cover;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <h1 style="font-size: 1.6rem; font-weight: 800; color: #ffffff; margin: 0;">Executive Diagnostic Command Center</h1>
+            <span style="background: #15803d; color: #ffffff; font-size: 0.72rem; font-weight: 800; padding: 3px 10px; border-radius: var(--radius-full); text-transform: uppercase;">ADMIN LIVE</span>
+          </div>
+          <div style="font-size: 0.86rem; color: #cbd5e1; margin-top: 4px;">
+            Logged in as <strong>Mr. Tushar Dodia</strong> &middot; Director DIN: 10265315 &middot; Chief Psychometric Assessor
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <a href="/" class="btn btn-secondary" style="background: rgba(255,255,255,0.12); color: #ffffff; border: 1px solid rgba(255,255,255,0.3); font-size: 0.85rem; padding: 8px 16px;">
+          <i class="fa-solid fa-globe" style="margin-right: 6px;"></i> View Public Portal
+        </a>
+        <a href="/admin/logout" class="btn btn-secondary" style="background: #dc2626; color: #ffffff; border: none; font-size: 0.85rem; padding: 8px 16px;">
+          <i class="fa-solid fa-arrow-right-from-bracket" style="margin-right: 6px;"></i> Logout
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Admin Main Container -->
+<section style="padding: 40px 0 80px; background: #f8fafc; min-height: 80vh;">
+  <div class="container" style="max-width: 1200px;">
+    
+    <!-- KPI Metrics Row -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; margin-bottom: 28px;">
+      
+      <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Total Assessments</span>
+          <i class="fa-solid fa-clipboard-user" style="color: var(--royal-blue); font-size: 1.2rem;"></i>
+        </div>
+        <div style="font-size: 1.85rem; font-weight: 800; color: var(--royal-navy);">{{ total_submissions }}</div>
+        <div style="font-size: 0.75rem; color: #15803d; font-weight: 600; margin-top: 4px;">
+          <i class="fa-solid fa-database"></i> Stored in Executive Repository
+        </div>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Client Inquiries</span>
+          <i class="fa-solid fa-envelope-open-text" style="color: #0284c7; font-size: 1.2rem;"></i>
+        </div>
+        <div style="font-size: 1.85rem; font-weight: 800; color: #0284c7;">{{ total_inquiries }}</div>
+        <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-top: 4px;">
+          Banks &middot; Schools &middot; Private Parents
+        </div>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">High Consistency Risk</span>
+          <i class="fa-solid fa-triangle-exclamation" style="color: #dc2626; font-size: 1.2rem;"></i>
+        </div>
+        <div style="font-size: 1.85rem; font-weight: 800; color: #dc2626;">{{ high_risks }}</div>
+        <div style="font-size: 0.75rem; color: #dc2626; font-weight: 600; margin-top: 4px;">
+          Requires immediate parent debrief
+        </div>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Pending Tushar Sir's Review</span>
+          <i class="fa-solid fa-user-clock" style="color: var(--saffron-dark); font-size: 1.2rem;"></i>
+        </div>
+        <div style="font-size: 1.85rem; font-weight: 800; color: var(--saffron-dark);">{{ pending_evals }}</div>
+        <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-top: 4px;">
+          Awaiting clinical sign-off
+        </div>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Avg. Execution Gap</span>
+          <i class="fa-solid fa-chart-line-down" style="color: #2563eb; font-size: 1.2rem;"></i>
+        </div>
+        <div style="font-size: 1.85rem; font-weight: 800; color: var(--royal-navy);">{{ avg_gap }}%</div>
+        <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-top: 4px;">
+          Idea Generation vs. Completion
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tab Bar: Submissions vs Inquiries -->
+    <div style="display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 2px solid var(--border-light); padding-bottom: 12px; flex-wrap: wrap;">
+      <button id="tabSubmissionsBtn" type="button" class="btn" style="background: var(--royal-blue); color: #ffffff; border: none; padding: 10px 22px; font-weight: 800; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; border-radius: var(--radius-full); box-shadow: 0 4px 10px rgba(37,99,235,0.2);">
+        <i class="fa-solid fa-clipboard-user"></i>
+        Student Diagnostic Assessments
+        <span style="background: rgba(255,255,255,0.25); color: #ffffff; padding: 2px 8px; border-radius: var(--radius-full); font-size: 0.78rem;">{{ total_submissions }}</span>
+      </button>
+      <button id="tabInquiriesBtn" type="button" class="btn" style="background: #ffffff; color: var(--text-secondary); border: 1px solid var(--border-light); padding: 10px 22px; font-weight: 800; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; border-radius: var(--radius-full);">
+        <i class="fa-solid fa-envelope-open-text"></i>
+        Institutional &amp; Client Inquiries
+        <span style="background: #e2e8f0; color: var(--royal-navy); padding: 2px 8px; border-radius: var(--radius-full); font-size: 0.78rem;">{{ total_inquiries }}</span>
+      </button>
+    </div>
+
+    <!-- VIEW 1: Submissions Section -->
+    <div id="submissionsViewSection">
+      <!-- Controls Bar: Filter & Search -->
+      <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        
+        <div style="display: flex; align-items: center; gap: 12px; flex: 1; max-width: 480px;">
+          <i class="fa-solid fa-magnifying-glass" style="color: #64748b;"></i>
+          <input type="text" id="adminSearchInput" class="form-input" placeholder="Search by student name, school, parent phone, or Report ID..." style="background: #f8fafc; padding: 10px 14px; font-size: 0.88rem;">
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <label for="statusFilter" style="font-size: 0.84rem; font-weight: 700; color: var(--text-secondary);">Filter Status:</label>
+          <select id="statusFilter" class="form-select" style="padding: 8px 12px; font-size: 0.85rem; width: auto; background: #ffffff;">
+            <option value="all">All Submissions</option>
+            <option value="New Submission">New Submission</option>
+            <option value="Evaluated by Tushar Sir">Evaluated</option>
+            <option value="Debrief Scheduled">Debrief Scheduled</option>
+            <option value="Pending Review">Pending Review</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Reports Table Card -->
+      <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);">
+        
+        <div style="padding: 18px 24px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+          <h2 style="font-size: 1.15rem; font-weight: 800; color: var(--royal-navy); margin: 0;">
+            Confidential Student Diagnostic Records (Restricted Admin Access)
+          </h2>
+          <span style="font-size: 0.82rem; color: #64748b; font-weight: 600;">
+            Showing <span id="visibleRowCount">{{ submissions|length }}</span> of {{ submissions|length }} Records
+          </span>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
+            <thead>
+              <tr style="background: #f8fafc; border-bottom: 1px solid var(--border-light); color: var(--royal-navy); font-size: 0.78rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">
+                <th style="padding: 14px 20px;">Report ID</th>
+                <th style="padding: 14px 20px;">Student &amp; School</th>
+                <th style="padding: 14px 20px;">Parent Contact</th>
+                <th style="padding: 14px 20px;">Execution Funnel</th>
+                <th style="padding: 14px 20px;">Risk Flag</th>
+                <th style="padding: 14px 20px;">Evaluation Status</th>
+                <th style="padding: 14px 20px; text-align: right;">Admin Action</th>
+              </tr>
+            </thead>
+            <tbody id="submissionsTableBody">
+              {% for item in submissions %}
+              <tr class="submission-row" data-id="{{ item.id }}" data-status="{{ item.status }}" data-text="{{ item.student_name }} {{ item.school_name }} {{ item.parent_phone }} {{ item.id }}" style="border-bottom: 1px solid var(--border-light); transition: background-color 0.15s ease;">
+                
+                <!-- Report ID -->
+                <td style="padding: 16px 20px; font-weight: 800; color: var(--royal-blue); white-space: nowrap;">
+                  <code>{{ item.id }}</code>
+                  <div style="font-size: 0.72rem; color: #64748b; font-weight: 600;">{{ item.created_at[:10] }}</div>
+                </td>
+
+                <!-- Student & School -->
+                <td style="padding: 16px 20px;">
+                  <div style="font-weight: 800; color: var(--royal-navy); font-size: 0.95rem;">{{ item.student_name }}</div>
+                  <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">
+                    {{ item.student_class }} &middot; {{ item.school_name }}
+                  </div>
+                </td>
+
+                <!-- Parent Contact -->
+                <td style="padding: 16px 20px; white-space: nowrap;">
+                  <div style="font-weight: 700; color: #1e293b;">{{ item.parent_phone }}</div>
+                  <div style="font-size: 0.78rem; color: #64748b;">{{ item.parent_name }}</div>
+                  <a href="https://wa.me/{{ item.parent_phone.replace(' ', '').replace('+', '') }}?text=Hello%20{{ item.parent_name|urlencode }}%2C%20this%20is%20from%20Mr.%20Tushar%20Dodia%27s%20executive%20desk%20regarding%20{{ item.student_name|urlencode }}%27s%20Psychometric%20Diagnostic%20(Report%20ID%3A%20{{ item.id }})." target="_blank" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.76rem; color: #15803d; font-weight: 700; margin-top: 4px; text-decoration: none;">
+                    <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                  </a>
+                </td>
+
+                <!-- Funnel & Gap -->
+                <td style="padding: 16px 20px; white-space: nowrap;">
+                  <div style="font-size: 0.82rem; color: #334155;">
+                    Idea: <strong>{{ item.idea_score }}%</strong> &rarr; Comp: <strong>{{ item.completion_score }}%</strong>
+                  </div>
+                  <div style="font-size: 0.82rem; font-weight: 800; color: #dc2626; margin-top: 2px;">
+                    Execution Gap: {{ item.execution_gap }}%
+                  </div>
+                </td>
+
+                <!-- Risk Flag -->
+                <td style="padding: 16px 20px; white-space: nowrap;">
+                  {% if "HIGH" in item.consistency_risk|upper %}
+                  <span style="background: #fee2e2; color: #991b1b; border: 1px solid #f87171; font-size: 0.74rem; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-full); display: inline-block;">
+                    HIGH RISK ({{ item.consistency_score }}%)
+                  </span>
+                  {% elif "MODERATE" in item.consistency_risk|upper %}
+                  <span style="background: #fef3c7; color: #92400e; border: 1px solid #fde68a; font-size: 0.74rem; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-full); display: inline-block;">
+                    MODERATE ({{ item.consistency_score }}%)
+                  </span>
+                  {% else %}
+                  <span style="background: #dcfce7; color: #166534; border: 1px solid #86efac; font-size: 0.74rem; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-full); display: inline-block;">
+                    STABLE ({{ item.consistency_score }}%)
+                  </span>
+                  {% endif %}
+                </td>
+
+                <!-- Status Dropdown -->
+                <td style="padding: 16px 20px;">
+                  <select class="status-selector" data-id="{{ item.id }}" style="font-size: 0.82rem; font-weight: 700; padding: 6px 10px; border-radius: 4px; border: 1px solid var(--border-light); background: #ffffff; color: var(--royal-navy);">
+                    <option value="New Submission" {% if item.status == 'New Submission' %}selected{% endif %}>New Submission</option>
+                    <option value="Evaluated by Tushar Sir" {% if item.status == 'Evaluated by Tushar Sir' %}selected{% endif %}>Evaluated by Tushar Sir</option>
+                    <option value="Debrief Scheduled" {% if item.status == 'Debrief Scheduled' %}selected{% endif %}>Debrief Scheduled</option>
+                    <option value="Pending Review" {% if item.status == 'Pending Review' %}selected{% endif %}>Pending Review</option>
+                    <option value="Completed" {% if item.status == 'Completed' %}selected{% endif %}>Completed</option>
+                  </select>
+                </td>
+
+                <!-- Admin Actions -->
+                <td style="padding: 16px 20px; text-align: right; white-space: nowrap;">
+                  <div style="display: inline-flex; gap: 8px; align-items: center;">
+                    <button type="button" class="btn btn-secondary view-details-btn" data-id="{{ item.id }}" style="padding: 6px 12px; font-size: 0.8rem; background: #ffffff; color: var(--royal-blue); border: 1px solid var(--royal-blue);">
+                      <i class="fa-solid fa-eye"></i> Details
+                    </button>
+                    <a href="/api/admin/reports/{{ item.id }}/pdf" target="_blank" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem; background: var(--royal-navy); color: #ffffff; text-decoration: none;">
+                      <i class="fa-solid fa-file-pdf"></i> Download PDF
+                    </a>
+                  </div>
+                </td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VIEW 2: Inquiries Section -->
+    <div id="inquiriesViewSection" style="display: none;">
+      <!-- Controls Bar: Search Inquiries -->
+      <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        
+        <div style="display: flex; align-items: center; gap: 12px; flex: 1; max-width: 480px;">
+          <i class="fa-solid fa-magnifying-glass" style="color: #64748b;"></i>
+          <input type="text" id="inquirySearchInput" class="form-input" placeholder="Search by name, organization, phone, or program..." style="background: #f8fafc; padding: 10px 14px; font-size: 0.88rem;">
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <label for="inquiryStatusFilter" style="font-size: 0.84rem; font-weight: 700; color: var(--text-secondary);">Filter Status:</label>
+          <select id="inquiryStatusFilter" class="form-select" style="padding: 8px 12px; font-size: 0.85rem; width: auto; background: #ffffff;">
+            <option value="all">All Inquiries</option>
+            <option value="New Inquiry">New Inquiry</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Scheduled">Scheduled</option>
+            <option value="Proposal Sent">Proposal Sent</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Inquiries Table Card -->
+      <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);">
+        
+        <div style="padding: 18px 24px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+          <h2 style="font-size: 1.15rem; font-weight: 800; color: var(--royal-navy); margin: 0;">
+            Institutional &amp; Client Inquiries (Direct Desk Leads)
+          </h2>
+          <span style="font-size: 0.82rem; color: #64748b; font-weight: 600;">
+            Showing <span id="visibleInqCount">{{ inquiries|length }}</span> of {{ inquiries|length }} Inquiries
+          </span>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
+            <thead>
+              <tr style="background: #f8fafc; border-bottom: 1px solid var(--border-light); color: var(--royal-navy); font-size: 0.78rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">
+                <th style="padding: 14px 20px;">Inquiry ID</th>
+                <th style="padding: 14px 20px;">Client &amp; Organization</th>
+                <th style="padding: 14px 20px;">Contact &amp; WhatsApp</th>
+                <th style="padding: 14px 20px;">Program of Interest</th>
+                <th style="padding: 14px 20px;">Message / Objectives</th>
+                <th style="padding: 14px 20px;">Lead Status</th>
+                <th style="padding: 14px 20px; text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="inquiriesTableBody">
+              {% for inq in inquiries %}
+              <tr class="inquiry-row" data-id="{{ inq.id }}" data-status="{{ inq.status }}" data-text="{{ inq.name }} {{ inq.org }} {{ inq.phone }} {{ inq.program_name }} {{ inq.id }}" style="border-bottom: 1px solid var(--border-light); transition: background-color 0.15s ease;">
+                
+                <!-- Inquiry ID -->
+                <td style="padding: 16px 20px; font-weight: 800; color: var(--royal-blue); white-space: nowrap;">
+                  <code>{{ inq.id }}</code>
+                  <div style="font-size: 0.72rem; color: #64748b; font-weight: 600;">{{ inq.created_at[:10] }}</div>
+                </td>
+
+                <!-- Client & Org -->
+                <td style="padding: 16px 20px;">
+                  <div style="font-weight: 800; color: var(--royal-navy); font-size: 0.95rem;">{{ inq.name }}</div>
+                  <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">
+                    {{ inq.org }}
+                  </div>
+                </td>
+
+                <!-- Contact -->
+                <td style="padding: 16px 20px; white-space: nowrap;">
+                  <div style="font-weight: 700; color: #1e293b;">{{ inq.phone }}</div>
+                  {% if inq.email %}
+                  <div style="font-size: 0.78rem; color: #64748b;">{{ inq.email }}</div>
+                  {% endif %}
+                  <a href="https://wa.me/{{ inq.phone.replace(' ', '').replace('+', '') }}?text=Hello%20{{ inq.name|urlencode }}%2C%20this%20is%20Mr.%20Tushar%20Dodia.%20Thank%20you%20for%20your%20inquiry%20regarding%20{{ inq.program_name|urlencode }}." target="_blank" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.76rem; color: #15803d; font-weight: 700; margin-top: 4px; text-decoration: none;">
+                    <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                  </a>
+                </td>
+
+                <!-- Program -->
+                <td style="padding: 16px 20px;">
+                  <span style="background: #eff6ff; color: var(--royal-navy); border: 1px solid #bfdbfe; font-size: 0.76rem; font-weight: 700; padding: 4px 8px; border-radius: 4px; display: inline-block;">
+                    {{ inq.program_name }}
+                  </span>
+                </td>
+
+                <!-- Message -->
+                <td style="padding: 16px 20px; max-width: 280px;">
+                  <div style="font-size: 0.82rem; color: #334155; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" title="{{ inq.message }}">
+                    {{ inq.message or 'No specific message provided.' }}
+                  </div>
+                </td>
+
+                <!-- Status Dropdown -->
+                <td style="padding: 16px 20px;">
+                  <select class="inquiry-status-selector" data-id="{{ inq.id }}" style="font-size: 0.82rem; font-weight: 700; padding: 6px 10px; border-radius: 4px; border: 1px solid var(--border-light); background: #ffffff; color: var(--royal-navy);">
+                    <option value="New Inquiry" {% if inq.status == 'New Inquiry' %}selected{% endif %}>New Inquiry</option>
+                    <option value="Contacted" {% if inq.status == 'Contacted' %}selected{% endif %}>Contacted</option>
+                    <option value="Scheduled" {% if inq.status == 'Scheduled' %}selected{% endif %}>Scheduled</option>
+                    <option value="Proposal Sent" {% if inq.status == 'Proposal Sent' %}selected{% endif %}>Proposal Sent</option>
+                    <option value="Completed" {% if inq.status == 'Completed' %}selected{% endif %}>Completed</option>
+                  </select>
+                </td>
+
+                <!-- Action -->
+                <td style="padding: 16px 20px; text-align: right; white-space: nowrap;">
+                  <a href="https://wa.me/{{ inq.phone.replace(' ', '').replace('+', '') }}?text=Hello%20{{ inq.name|urlencode }}%2C%20this%20is%20Mr.%20Tushar%20Dodia." target="_blank" class="btn btn-secondary" style="background:#15803d; color:#ffffff; border:none; padding:6px 12px; font-size:0.8rem; text-decoration:none;">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                  </a>
+                </td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Full Diagnostic Details Modal (Admin Only) -->
+<div id="diagnosticDetailModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); z-index: 1000; overflow-y: auto; padding: 40px 16px;">
+  <div style="max-width: 850px; margin: 0 auto; background: #ffffff; border-radius: var(--radius-lg); box-shadow: 0 20px 40px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid var(--border-light);">
+    
+    <!-- Modal Header -->
+    <div style="background: #1e3a8a; color: #ffffff; padding: 20px 28px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <div style="font-size: 0.78rem; font-weight: 800; color: #fde047; text-transform: uppercase;">Official Dodia Academy Dossier</div>
+        <h3 id="modalStudentName" style="font-size: 1.4rem; font-weight: 800; color: #ffffff; margin: 4px 0 0;">Student Name</h3>
+      </div>
+      <button id="closeModalBtn" style="background: none; border: none; color: #ffffff; font-size: 1.8rem; cursor: pointer; line-height: 1;">&times;</button>
+    </div>
+
+    <!-- Modal Body -->
+    <div style="padding: 28px;" id="modalBodyContent">
+      Loading dossier metrics...
+    </div>
+
+    <!-- Modal Footer -->
+    <div style="padding: 16px 28px; background: #f8fafc; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <div id="modalReportIdBadge" style="font-weight: 800; color: var(--royal-blue); font-size: 0.9rem;"></div>
+      <div style="display: flex; gap: 10px;">
+        <button id="saveNotesBtn" class="btn btn-secondary" style="background: #ffffff; color: var(--royal-navy); border: 1px solid var(--border-light); padding: 8px 16px; font-size: 0.88rem;">
+          <i class="fa-solid fa-floppy-disk"></i> Save Clinical Notes
+        </button>
+        <a id="modalPdfDownloadLink" href="#" target="_blank" class="btn btn-primary" style="padding: 8px 18px; font-size: 0.88rem;">
+          <i class="fa-solid fa-file-pdf"></i> Download Official 8-Page PDF Dossier
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Tab Switching
+  const tabSubmissionsBtn = document.getElementById('tabSubmissionsBtn');
+  const tabInquiriesBtn = document.getElementById('tabInquiriesBtn');
+  const submissionsSection = document.getElementById('submissionsViewSection');
+  const inquiriesSection = document.getElementById('inquiriesViewSection');
+
+  function switchTab(activeTab) {
+    if (activeTab === 'submissions') {
+      submissionsSection.style.display = 'block';
+      inquiriesSection.style.display = 'none';
+      tabSubmissionsBtn.style.background = 'var(--royal-blue)';
+      tabSubmissionsBtn.style.color = '#ffffff';
+      tabSubmissionsBtn.style.border = 'none';
+      tabSubmissionsBtn.style.boxShadow = '0 4px 10px rgba(37,99,235,0.2)';
+      tabInquiriesBtn.style.background = '#ffffff';
+      tabInquiriesBtn.style.color = 'var(--text-secondary)';
+      tabInquiriesBtn.style.border = '1px solid var(--border-light)';
+      tabInquiriesBtn.style.boxShadow = 'none';
+    } else {
+      submissionsSection.style.display = 'none';
+      inquiriesSection.style.display = 'block';
+      tabInquiriesBtn.style.background = 'var(--royal-blue)';
+      tabInquiriesBtn.style.color = '#ffffff';
+      tabInquiriesBtn.style.border = 'none';
+      tabInquiriesBtn.style.boxShadow = '0 4px 10px rgba(37,99,235,0.2)';
+      tabSubmissionsBtn.style.background = '#ffffff';
+      tabSubmissionsBtn.style.color = 'var(--text-secondary)';
+      tabSubmissionsBtn.style.border = '1px solid var(--border-light)';
+      tabSubmissionsBtn.style.boxShadow = 'none';
+    }
+  }
+
+  tabSubmissionsBtn?.addEventListener('click', () => switchTab('submissions'));
+  tabInquiriesBtn?.addEventListener('click', () => switchTab('inquiries'));
+
+  // Submissions Search & Filter
+  const searchInput = document.getElementById('adminSearchInput');
+  const statusFilter = document.getElementById('statusFilter');
+  const rows = document.querySelectorAll('.submission-row');
+  const visibleCountEl = document.getElementById('visibleRowCount');
+  const modal = document.getElementById('diagnosticDetailModal');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  let currentActiveRecord = null;
+
+  function applySubmissionFilter() {
+    const q = (searchInput ? searchInput.value : '').toLowerCase().trim();
+    const selStatus = statusFilter ? statusFilter.value : 'all';
+    let visible = 0;
+
+    rows.forEach(row => {
+      const text = row.getAttribute('data-text').toLowerCase();
+      const status = row.getAttribute('data-status');
+      const matchText = text.includes(q);
+      const matchStatus = selStatus === 'all' || status === selStatus;
+
+      if (matchText && matchStatus) {
+        row.style.display = '';
+        visible++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    if (visibleCountEl) visibleCountEl.textContent = visible;
+  }
+
+  searchInput?.addEventListener('input', applySubmissionFilter);
+  statusFilter?.addEventListener('change', applySubmissionFilter);
+
+  // Inquiries Search & Filter
+  const inqSearchInput = document.getElementById('inquirySearchInput');
+  const inqStatusFilter = document.getElementById('inquiryStatusFilter');
+  const inqRows = document.querySelectorAll('.inquiry-row');
+  const inqVisibleCountEl = document.getElementById('visibleInqCount');
+
+  function applyInquiryFilter() {
+    const q = (inqSearchInput ? inqSearchInput.value : '').toLowerCase().trim();
+    const selStatus = inqStatusFilter ? inqStatusFilter.value : 'all';
+    let visible = 0;
+
+    inqRows.forEach(row => {
+      const text = row.getAttribute('data-text').toLowerCase();
+      const status = row.getAttribute('data-status');
+      const matchText = text.includes(q);
+      const matchStatus = selStatus === 'all' || status === selStatus;
+
+      if (matchText && matchStatus) {
+        row.style.display = '';
+        visible++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    if (inqVisibleCountEl) inqVisibleCountEl.textContent = visible;
+  }
+
+  inqSearchInput?.addEventListener('input', applyInquiryFilter);
+  inqStatusFilter?.addEventListener('change', applyInquiryFilter);
+
+  // Inquiries Status Change AJAX
+  document.querySelectorAll('.inquiry-status-selector').forEach(sel => {
+    sel.addEventListener('change', async () => {
+      const id = sel.getAttribute('data-id');
+      const newStatus = sel.value;
+      try {
+        const res = await fetch(`/api/admin/inquiries/${id}/status`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        if (res.ok) {
+          const row = sel.closest('.inquiry-row');
+          if (row) {
+            row.setAttribute('data-status', newStatus);
+            row.style.backgroundColor = '#ecfdf5';
+            setTimeout(() => { row.style.backgroundColor = ''; }, 1000);
+          }
+        }
+      } catch (err) {
+        alert('Failed to update inquiry status');
+      }
+    });
+  });
+
+  // Submission Status Change AJAX
+  document.querySelectorAll('.status-selector').forEach(sel => {
+    sel.addEventListener('change', async (e) => {
+      const id = sel.getAttribute('data-id');
+      const newStatus = sel.value;
+      try {
+        const res = await fetch(`/api/admin/reports/${id}/status`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        if (res.ok) {
+          const row = sel.closest('.submission-row');
+          if (row) {
+            row.setAttribute('data-status', newStatus);
+            row.style.backgroundColor = '#ecfdf5';
+            setTimeout(() => { row.style.backgroundColor = ''; }, 1000);
+          }
+        }
+      } catch (err) {
+        alert('Failed to update status');
+      }
+    });
+  });
+
+  // Modal Detail View
+  document.querySelectorAll('.view-details-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.getAttribute('data-id');
+      try {
+        const res = await fetch(`/api/admin/reports/${id}`);
+        if (!res.ok) throw new Error('Failed to load report');
+        const data = await res.json();
+        currentActiveRecord = data;
+
+        document.getElementById('modalStudentName').textContent = `${data.student_name} (${data.student_class})`;
+        document.getElementById('modalReportIdBadge').textContent = `Report ID: ${data.id}`;
+        document.getElementById('modalPdfDownloadLink').href = `/api/admin/reports/${data.id}/pdf`;
+
+        const strengthsHtml = (data.strengths || []).map(s => `<li style="padding:4px 0; font-size:0.86rem; color:#1e293b;"><i class="fa-solid fa-check" style="color:#15803d; margin-right:6px;"></i> ${s}</li>`).join('');
+        const risksHtml = (data.risks || []).map(r => `<li style="padding:4px 0; font-size:0.86rem; color:#991b1b;"><i class="fa-solid fa-triangle-exclamation" style="color:#dc2626; margin-right:6px;"></i> ${r}</li>`).join('');
+
+        document.getElementById('modalBodyContent').innerHTML = `
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
+            <div style="background:#f8fafc; border:1px solid var(--border-light); padding:16px; border-radius:6px;">
+              <div style="font-size:0.78rem; color:#64748b; font-weight:700; text-transform:uppercase;">Institutional Coordinates</div>
+              <div style="font-weight:800; color:var(--royal-navy); margin-top:4px;">${data.school_name}</div>
+              <div style="font-size:0.85rem; color:#334155; margin-top:4px;">Parent: <strong>${data.parent_name}</strong> (${data.parent_phone})</div>
+              <div style="font-size:0.82rem; color:#64748b; margin-top:2px;">Submitted: ${data.created_at}</div>
+            </div>
+            <div style="background:#f8fafc; border:1px solid var(--border-light); padding:16px; border-radius:6px;">
+              <div style="font-size:0.78rem; color:#64748b; font-weight:700; text-transform:uppercase;">Execution Funnel Analysis</div>
+              <div style="display:flex; justify-content:space-between; margin-top:6px; font-size:0.88rem;">
+                <span>Idea Spark: <strong>${data.idea_score}%</strong></span>
+                <span>Completion: <strong>${data.completion_score}%</strong></span>
+              </div>
+              <div style="font-size:1.1rem; font-weight:800; color:#dc2626; margin-top:6px;">
+                Execution Gap: ${data.execution_gap}% (${data.consistency_risk})
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <div style="font-weight:800; color:var(--royal-navy); margin-bottom:8px; font-size:0.95rem;">Key Strengths (S-Series)</div>
+            <ul style="list-style:none; padding:0; margin:0;">${strengthsHtml || '<li>Standard strengths recorded.</li>'}</ul>
+          </div>
+
+          <div style="margin-bottom:24px;">
+            <div style="font-weight:800; color:#dc2626; margin-bottom:8px; font-size:0.95rem;">Operational Vulnerabilities (R-Series)</div>
+            <ul style="list-style:none; padding:0; margin:0;">${risksHtml || '<li>No critical red flags.</li>'}</ul>
+          </div>
+
+          <div>
+            <label for="modalNotesInput" style="display:block; font-weight:800; color:var(--royal-navy); margin-bottom:6px; font-size:0.92rem;">
+              Mr. Tushar Dodia's Clinical &amp; Mentorship Notes
+            </label>
+            <textarea id="modalNotesInput" rows="3" class="form-textarea" style="background:#ffffff; font-size:0.88rem;">${data.notes || ''}</textarea>
+          </div>
+        `;
+
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      } catch (err) {
+        alert('Unable to load report details');
+      }
+    });
+  });
+
+  // Save Notes Button
+  document.getElementById('saveNotesBtn')?.addEventListener('click', async () => {
+    if (!currentActiveRecord) return;
+    const notes = document.getElementById('modalNotesInput')?.value || '';
+    try {
+      const res = await fetch(`/api/admin/reports/${currentActiveRecord.id}/status`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notes })
+      });
+      if (res.ok) {
+        alert('Clinical notes saved successfully to dossier.');
+      }
+    } catch (err) {
+      alert('Failed to save notes');
+    }
+  });
+
+  // Close Modal
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  closeModalBtn?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+});
+</script>
+{% endblock %}

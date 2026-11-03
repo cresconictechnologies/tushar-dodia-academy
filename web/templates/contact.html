@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block title %}Contact &amp; Academy Location | Mr. Tushar Dodia{% endblock %}
+
+{% block content %}
+<!-- Page Hero Banner -->
+<section class="page-hero">
+  <div class="container">
+    <div style="display: inline-flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <img src="/static/img/tushar_dodia/hero_avatar.jpg" alt="Tushar Dodia" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--royal-blue); object-fit: cover;">
+      <div style="font-weight: 700; color: var(--royal-blue); font-size: 0.95rem;">Direct Access to Executive Office</div>
+    </div>
+    <h1 class="page-hero-title">Initiate an Institutional Dialogue</h1>
+    <p class="page-hero-subtitle">
+      Connect directly with Mr. Tushar Dodia for cooperative banking workshops, school/college personality seminars, or individual psychometric debriefs.
+    </p>
+  </div>
+</section>
+
+<!-- Contact Form & Academy Coordinates -->
+<section style="padding: 70px 0 90px; background: #ffffff;">
+  <div class="container" style="max-width: 1050px;">
+    
+    <div class="contact-grid">
+      
+      <!-- Contact Form -->
+      <div class="contact-form-box">
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--royal-navy); margin-bottom: 8px;">Send an Inquiry</h2>
+        <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 24px;">Fill the form below and Mr. Tushar Dodia or his executive team will respond within 24 hours.</p>
+
+        <form id="contactForm">
+          <div class="form-group">
+            <label class="form-label" for="contactName">Your Full Name *</label>
+            <input type="text" id="contactName" class="form-input" placeholder="e.g. Anand Sharma" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contactOrg">Organization / School / Bank Name</label>
+            <input type="text" id="contactOrg" class="form-input" placeholder="e.g. Rajarshi Shahu Co-op Bank or Model High School">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="contactPhone">Mobile / WhatsApp Number *</label>
+              <input type="tel" id="contactPhone" class="form-input" placeholder="+91 9876543210" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contactEmail">Email Address</label>
+              <input type="email" id="contactEmail" class="form-input" placeholder="name@domain.com">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contactProgram">Program of Interest</label>
+            <select id="contactProgram" class="form-select">
+              <option value="bank">Cooperative Bank &amp; Branch Leadership (₹35,000)</option>
+              <option value="teachers">Teacher Faculty Development Workshop (₹35,000)</option>
+              <option value="students">Student Personality &amp; Career Vision Workshop (₹30,000)</option>
+              <option value="counselling">1-on-1 Student &amp; Parent Counselling (₹150/hr)</option>
+              <option value="trekking">Training Through Trekking (Wilderness Immersion)</option>
+              <option value="keynote">Keynote / Motivational Speech Engagement</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contactMessage">Message / Specific Requirements</label>
+            <textarea id="contactMessage" class="form-textarea" rows="4" placeholder="Tell us about your audience size, preferred dates, and specific objectives..."></textarea>
+          </div>
+
+          <button type="submit" id="contactSubmitBtn" class="btn btn-primary" style="width: 100%; padding: 14px;">
+            <i class="fa-solid fa-paper-plane"></i> Submit Inquiry
+          </button>
+
+          <div id="formSuccessMessage" style="display: none; margin-top: 18px; padding: 14px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; color: #065f46; font-size: 0.92rem; text-align: center;">
+            <i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 6px;"></i> <span id="successMsgText">Thank you! Your inquiry has been submitted. Mr. Tushar Dodia's office will reach out shortly.</span>
+          </div>
+        </form>
+      </div>
+
+      <!-- Academy Coordinates & Direct WhatsApp Card -->
+      <div class="contact-info-card">
+        <div>
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+            <img src="/static/img/tushar_dodia/hero_square.jpg" alt="Mr. Tushar Dodia" style="width: 65px; height: 65px; border-radius: 50%; border: 3px solid var(--royal-blue); object-fit: cover;">
+            <div>
+              <div style="font-size: 0.78rem; font-weight: 800; color: var(--royal-blue); text-transform: uppercase; letter-spacing: 0.5px;">Executive Desk</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: var(--royal-navy);">Mr. Tushar Dodia</div>
+              <div style="font-size: 0.78rem; color: var(--saffron-dark); font-weight: 800;">DIRECTOR DIN: 10265315</div>
+            </div>
+          </div>
+          <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--royal-navy); margin-bottom: 12px; line-height: 1.25;">
+            Dodia Academy of Education &amp; Human Development
+          </h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin-bottom: 24px;">
+            Serving institutions across Maharashtra, Pune, Mumbai, Punjab, and pan-India with research-backed educational frameworks.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px;">
+            <div style="display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border-light);">
+              <i class="fa-solid fa-location-dot" style="color: var(--royal-blue); font-size: 1.2rem; margin-top: 3px;"></i>
+              <div>
+                <div style="font-weight: 800; color: var(--royal-navy); font-size: 0.95rem;">Head Office Address</div>
+                <div style="color: var(--text-secondary); font-size: 0.88rem;">Buldhana, Maharashtra 443001, India</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border-light);">
+              <i class="fa-solid fa-phone" style="color: var(--royal-blue); font-size: 1.2rem; margin-top: 3px;"></i>
+              <div>
+                <div style="font-weight: 800; color: var(--royal-navy); font-size: 0.95rem;">Direct Telephone</div>
+                <div style="color: var(--text-secondary); font-size: 0.88rem;">+91 7741823212</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border-light);">
+              <i class="fa-solid fa-envelope" style="color: var(--royal-blue); font-size: 1.2rem; margin-top: 3px;"></i>
+              <div>
+                <div style="font-weight: 800; color: var(--royal-navy); font-size: 0.95rem;">Official Email</div>
+                <div style="color: var(--text-secondary); font-size: 0.88rem;">tushar.dodia235@gmail.com</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 14px; align-items: flex-start; padding: 10px 0;">
+              <i class="fa-solid fa-id-badge" style="color: var(--royal-blue); font-size: 1.2rem; margin-top: 3px;"></i>
+              <div>
+                <div style="font-weight: 800; color: var(--royal-navy); font-size: 0.95rem;">Corporate Directorship</div>
+                <div style="color: var(--text-secondary); font-size: 0.88rem;">Director DIN: 10265315 (Dhanpragati Urban Nidhi Ltd)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <a href="https://wa.me/917741823212?text=Hello%20Mr.%20Tushar%20Dodia%2C%20I%20would%20like%20to%20connect%20regarding%20your%20training%20programs" target="_blank" class="btn btn-secondary" style="background:#15803d; color:#ffffff; border:none; width:100%; margin-bottom:12px; font-size:1rem; box-shadow: 0 2px 8px rgba(21, 128, 61, 0.25);">
+            <i class="fa-brands fa-whatsapp" style="font-size:1.25rem;"></i> Chat Directly with Tushar Sir
+          </a>
+          <a href="/dossier/downloads/tushar_dodia_brochure.pdf" target="_blank" class="btn btn-secondary" style="width:100%; font-size:0.88rem; border: 2px solid var(--royal-blue); color: var(--royal-blue);">
+            <i class="fa-solid fa-download"></i> Download Official 100-Page Portfolio
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('contactSubmitBtn');
+  const successBox = document.getElementById('formSuccessMessage');
+  const successText = document.getElementById('successMsgText');
+
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('contactName')?.value.trim();
+    const org = document.getElementById('contactOrg')?.value.trim();
+    const phone = document.getElementById('contactPhone')?.value.trim();
+    const email = document.getElementById('contactEmail')?.value.trim();
+    const program = document.getElementById('contactProgram')?.value;
+    const message = document.getElementById('contactMessage')?.value.trim();
+
+    if (!name || !phone) {
+      alert('Please enter your full name and mobile/WhatsApp number.');
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting Inquiry...';
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, org, phone, email, program, message })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        if (successBox && successText) {
+          successText.innerHTML = `<strong>Inquiry Reference: ${data.inquiry_id}</strong> &mdash; ${data.message}`;
+          successBox.style.display = 'block';
+        }
+        form.reset();
+        submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Inquiry Submitted';
+        setTimeout(() => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Another Inquiry';
+          }
+        }, 3000);
+      } else {
+        throw new Error(data.detail || 'Server error occurred');
+      }
+    } catch (err) {
+      alert('Unable to transmit inquiry. Please try again or WhatsApp Mr. Tushar Dodia directly.');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Inquiry';
+      }
+    }
+  });
+});
+</script>
+{% endblock %}

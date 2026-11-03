@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Psychometric Test Report - {{ report.student.name }}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: #525659;
+    font-family: 'Calibri', 'Roboto', 'Segoe UI', 'Noto Sans Devanagari', sans-serif;
+    color: #1a1a2e;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    page-break-after: always;
+    page-break-inside: avoid;
+    position: relative;
+    background: #ffffff;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  /* Running footer on pages 1 to 8 */
+  .page-footer {
+    position: absolute;
+    bottom: 12mm;
+    left: 18mm;
+    right: 18mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1.5px solid #d4af37;
+    padding-top: 6px;
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    color: #1b2d6b;
+    text-transform: uppercase;
+  }
+  .page-footer span.gold {
+    color: #c8a532;
+    margin-left: 4px;
+  }
+
+  /* PAGE 1: COVER */
+  .cover-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 147mm;
+    height: 297mm;
+    background: #ffffff;
+    padding: 18mm 14mm 18mm 18mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .cover-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 63mm;
+    height: 297mm;
+    background: #2e4d8f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10mm;
+    color: #ffffff;
+  }
+
+  .cover-logo-box {
+    margin-bottom: 25px;
+  }
+  .cover-logo-img {
+    height: 72px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .cover-title-main {
+    font-size: 27pt;
+    font-weight: 800;
+    color: #1b2d6b;
+    line-height: 1.15;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .cover-title-sub {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #c8a532;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    line-height: 1.3;
+  }
+
+  .cover-intro-text {
+    font-size: 9.5pt;
+    line-height: 1.6;
+    color: #444444;
+    font-style: italic;
+    border-left: 3px solid #c8a532;
+    padding-left: 12px;
+    margin-bottom: auto;
+  }
+
+  .cover-assessor-box {
+    margin-top: 40px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 12px;
+  }
+  .cover-assessor-name {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #1b2d6b;
+    margin-bottom: 3px;
+  }
+  .cover-assessor-creds {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #1b2d6b;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+  }
+
+  .cover-right-student {
+    font-family: 'Merriweather', serif;
+    font-size: 24pt;
+    font-style: italic;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .cover-right-report-title {
+    font-size: 12pt;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  /* INNER PAGES (2 - 8) */
+  .inner-container {
+    padding: 16mm 18mm 18mm 18mm;
+    height: 100%;
+    position: relative;
+  }
+
+  /* Section Header Banners */
+  .section-banner-navy {
+    background: #1b2d6b;
+    color: #ffffff;
+    padding: 6px 14px;
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+  }
+
+  .section-banner-navy.first {
+    margin-top: 0;
+  }
+
+  /* Stat cards top of Page 2 */
+  .student-header-title {
+    font-size: 22pt;
+    font-weight: 800;
+    color: #1b2d6b;
+    margin-bottom: 2px;
+  }
+  .student-header-subtitle {
+    font-size: 10pt;
+    color: #666666;
+    margin-bottom: 12px;
+  }
+
+  .stat-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .stat-card {
+    border: 1px solid #1b2d6b;
+    padding: 10px 8px;
+    text-align: center;
+    background: #ffffff;
+  }
+  .stat-card-val {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #1b2d6b;
+    line-height: 1.1;
+  }
+  .stat-card-lbl {
+    font-size: 8pt;
+    font-weight: 600;
+    color: #666666;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .stat-card.risk {
+    border-color: #c0392b;
+  }
+  .stat-card.risk .stat-card-val {
+    color: #c0392b;
+    font-size: 16pt;
+  }
+  .stat-card.potential .stat-card-val {
+    color: #d48806;
+    font-size: 16pt;
+  }
+
+  .tagline-callout {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #1b2d6b;
+    text-align: center;
+    padding: 6px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  /* Table styling */
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14px;
+    font-size: 9.5pt;
+  }
+  table.data-table td, table.data-table th {
+    padding: 6px 10px;
+    border: 1px solid #dcdfe6;
+    text-align: left;
+  }
+  table.data-table th {
+    background: #f4f6fb;
+    font-weight: 700;
+    color: #1b2d6b;
+  }
+  table.data-table td.label-cell {
+    width: 28%;
+    background: #1b2d6b;
+    color: #ffffff;
+    font-weight: 600;
+  }
+  table.data-table td.val-cell {
+    background: #f8fafc;
+    color: #1a1a2e;
+  }
+
+  /* Personality Quote Box */
+  .quote-box-blue {
+    background: #f0f4fc;
+    border-left: 4px solid #1b2d6b;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+  }
+  .quote-box-title {
+    font-size: 11pt;
+    font-weight: 800;
+    color: #1b2d6b;
+    margin-bottom: 4px;
+  }
+  .quote-box-hindi {
+    font-size: 10pt;
+    color: #2e4d8f;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .quote-box-quote {
+    font-size: 9.5pt;
+    color: #c0392b;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  /* Two column layout for snapshots */
+  .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .col-card {
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    padding: 10px;
+  }
+  .col-card-title {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #1b2d6b;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1.5px solid #1b2d6b;
+  }
+
+  /* Metric Bars */
+  .metric-row {
+    margin-bottom: 6px;
+  }
+  .metric-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 2px;
+  }
+  .metric-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: #e6ebf5;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .metric-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+  }
+  .fill-blue { background: #1b2d6b; }
+  .fill-green { background: #1a6b3a; }
+  .fill-orange { background: #d48806; }
+  .fill-red { background: #c0392b; }
+
+  /* Bullet list styling */
+  ul.custom-bullets {
+    list-style: none;
+    font-size: 9pt;
+    line-height: 1.5;
+  }
+  ul.custom-bullets li {
+    position: relative;
+    padding-left: 14px;
+    margin-bottom: 4px;
+    color: #333333;
+  }
+  ul.custom-bullets li::before {
+    content: "•";
+    color: #1b2d6b;
+    font-weight: bold;
+    font-size: 12pt;
+    position: absolute;
+    left: 0;
+    top: -2px;
+  }
+
+  /* Strengths Table (Page 4) */
+  table.strengths-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+  }
+  table.strengths-table tr {
+    border-bottom: 1px solid #e2e8f0;
+  }
+  table.strengths-table td {
+    padding: 10px 8px;
+    vertical-align: middle;
+  }
+  .s-badge {
+    background: #eef2fb;
+    color: #1b2d6b;
+    font-weight: 800;
+    font-size: 10pt;
+    padding: 6px 10px;
+    border: 1px solid #b8c8ea;
+    display: inline-block;
+    text-align: center;
+    border-radius: 2px;
+  }
+  .s-title {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #1b2d6b;
+    margin-bottom: 2px;
+  }
+  .s-desc {
+    font-size: 9pt;
+    color: #444444;
+    line-height: 1.4;
+  }
+  .pill-key-strength {
+    color: #1a6b3a;
+    font-weight: 700;
+    font-size: 8.5pt;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .pill-rare-trait {
+    color: #2e4d8f;
+    font-weight: 700;
+    font-size: 8.5pt;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  /* Risk Areas (Page 5) */
+  .risk-alert-subtext {
+    color: #c0392b;
+    font-size: 9.5pt;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  table.risk-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+  }
+  table.risk-table tr {
+    border-bottom: 1px solid #f2dcd9;
+  }
+  table.risk-table td {
+    padding: 10px 8px;
+    vertical-align: middle;
+  }
+  .r-badge {
+    background: #fdf2f2;
+    color: #c0392b;
+    font-weight: 800;
+    font-size: 10pt;
+    padding: 6px 10px;
+    border: 1px solid #f5b7b1;
+    display: inline-block;
+    border-radius: 2px;
+  }
+  .r-title {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #1b2d6b;
+    margin-bottom: 2px;
+  }
+  .r-desc {
+    font-size: 9pt;
+    color: #444444;
+    line-height: 1.4;
+  }
+  .pill-high-risk {
+    color: #c0392b;
+    font-weight: 700;
+    font-size: 8.5pt;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .pill-med-risk {
+    color: #d48806;
+    font-weight: 700;
+    font-size: 8.5pt;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  /* Execution Funnel & Red Flags (Page 6) */
+  .funnel-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 9.5pt;
+    font-weight: 600;
+  }
+  .funnel-label {
+    width: 220px;
+    color: #1b2d6b;
+  }
+  .funnel-bar-box {
+    flex-grow: 1;
+    height: 16px;
+    background: #eef2f8;
+    margin: 0 12px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .funnel-bar-inner {
+    height: 100%;
+  }
+  .funnel-val {
+    width: 45px;
+    text-align: right;
+    font-weight: 700;
+    color: #1b2d6b;
+  }
+
+  .red-flag-card {
+    border: 1px solid #f5c6cb;
+    background: #fffafa;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+  }
+  .red-flag-card.medium {
+    border-color: #ffeeba;
+    background: #fffdf8;
+  }
+  .rf-badge {
+    padding: 2px 6px;
+    font-size: 8pt;
+    font-weight: 800;
+    margin-right: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .rf-badge.high {
+    background: #c0392b;
+    color: #ffffff;
+  }
+  .rf-badge.medium {
+    background: #d48806;
+    color: #ffffff;
+  }
+  .rf-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #1b2d6b;
+    margin-bottom: 2px;
+  }
+  .rf-desc {
+    font-size: 8.8pt;
+    color: #555555;
+    line-height: 1.35;
+  }
+
+  /* Mindset Shifts (Page 7) */
+  .mindset-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 12px;
+  }
+  .mindset-box {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 3px;
+    font-size: 9.2pt;
+    font-weight: 600;
+  }
+  .mindset-box.avoid {
+    background: #fdf2f2;
+    border: 1px solid #f5b7b1;
+    color: #c0392b;
+  }
+  .mindset-box.adopt {
+    background: #f0f9f4;
+    border: 1px solid #c3e6cb;
+    color: #1a6b3a;
+  }
+  .mindset-arrow {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #1b2d6b;
+  }
+
+  /* Career Fit Boxes */
+  .career-fit-card {
+    border: 1px solid #e2e8f0;
+    padding: 12px;
+    background: #ffffff;
+    height: 100%;
+  }
+  .career-item {
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+  .career-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  .ci-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #1b2d6b;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ci-fit-badge {
+    font-size: 8pt;
+    font-weight: 800;
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .ci-fit-badge.high { background: #d4edda; color: #155724; }
+  .ci-fit-badge.good { background: #d1ecf1; color: #0c5460; }
+  .ci-fit-badge.mod { background: #fff3cd; color: #856404; }
+  .ci-sub {
+    font-size: 8.5pt;
+    color: #666666;
+  }
+
+  /* Action Plan Table (Page 8) */
+  table.action-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+    margin-bottom: 14px;
+  }
+  table.action-table th {
+    background: #1b2d6b;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 6px 8px;
+    text-align: left;
+  }
+  table.action-table td {
+    padding: 6px 8px;
+    border: 1px solid #dcdfe6;
+    vertical-align: middle;
+  }
+  table.action-table tr:nth-child(even) {
+    background: #f8fafc;
+  }
+  .freq-badge {
+    background: #eef2fb;
+    color: #1b2d6b;
+    font-weight: 700;
+    font-size: 8pt;
+    padding: 2px 6px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  /* Personal Letter / Final Verdict (Page 8) */
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .verdict-box {
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 9pt;
+    line-height: 1.45;
+  }
+  .verdict-box.no-imp {
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    color: #c0392b;
+  }
+  .verdict-box.corr {
+    background: #f0fff4;
+    border: 1px solid #c6f6d5;
+    color: #22543d;
+  }
+  .verdict-box-title {
+    font-weight: 800;
+    font-size: 9.5pt;
+    margin-bottom: 6px;
+  }
+
+  .letter-box {
+    background: #fdfbf7;
+    border: 1px solid #f6e05e;
+    border-left: 4px solid #c8a532;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+  }
+  .letter-head {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #1b2d6b;
+    margin-bottom: 4px;
+  }
+  .letter-body {
+    font-size: 9.2pt;
+    color: #333333;
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .letter-quote {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #c0392b;
+    font-style: italic;
+  }
+
+  .signature-block {
+    text-align: right;
+    font-size: 8.5pt;
+    color: #555555;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1: COVER ==================== -->
+  <div class="page">
+    <div class="cover-left">
+      <div class="cover-logo-box">
+        <img class="cover-logo-img" src="data:image/png;base64,{{ logo_base64 }}" alt="Dodia Academy Logo">
+      </div>
+
+      <div>
+        <div class="cover-title-main">DODIA ACADEMY OF EDUCATION</div>
+        <div class="cover-title-sub">STUDENTS PERSONALITY, BEHAVIOUR AND CAREER ANALYSIS</div>
+        <div class="cover-intro-text">
+          This report provides a clear analysis of the student's personality, behavior, and career inclination 
+          based on psychometric responses. It highlights key strengths, weaknesses, and patterns affecting 
+          performance along with practical guidance for improvement and better decision-making.
+        </div>
+      </div>
+
+      <div class="cover-assessor-box">
+        <div class="cover-assessor-name">{{ report.student.assessor_name }}</div>
+        <div class="cover-assessor-creds">{{ report.student.assessor_title }}</div>
+      </div>
+    </div>
+
+    <div class="cover-right">
+      <div class="cover-right-student">{{ report.student.name }}'s</div>
+      <div class="cover-right-report-title">PSYCHOMETRIC<br>TEST REPORT</div>
+    </div>
+
+    <div class="page-footer">
+      <div>PSYCHOMETRIC ASSESSMENT · {{ report.student.name.upper() }} · {{ report.student.student_class.upper() }} · CONFIDENTIAL<span class="gold">1</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 2: OVERVIEW & PERSONALITY ==================== -->
+  <div class="page">
+    <div class="inner-container">
+      <div class="student-header-title">{{ report.student.name }}</div>
+      <div class="student-header-subtitle">{{ report.student.student_class }} · Career &amp; Personality Profile</div>
+
+      <div class="stat-grid-4">
+        <div class="stat-card">
+          <div class="stat-card-val">{{ report.student.academic_score }}</div>
+          <div class="stat-card-lbl">Academic</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-val">Class</div>
+          <div class="stat-card-lbl">{{ report.student.student_class.replace('Class ', '').replace('th Standard', '') }}</div>
+        </div>
+        <div class="stat-card potential">
+          <div class="stat-card-val">{{ report.potential_rating }}</div>
+          <div class="stat-card-lbl">Potential</div>
+        </div>
+        <div class="stat-card risk">
+          <div class="stat-card-val">⚠ {{ report.consistency_risk }}</div>
+          <div class="stat-card-lbl">Consistency Risk</div>
+        </div>
+      </div>
+
+      <div class="tagline-callout">"{{ report.header_tagline }}"</div>
+
+      <div class="section-banner-navy first">01 / 10 Student Overview</div>
+      <table class="data-table">
+        <tr>
+          <td class="label-cell">Class</td>
+          <td class="val-cell">{{ report.student.student_class }}</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Academic Score</td>
+          <td class="val-cell"><strong>{{ report.student.academic_score }}</strong> — Good performer, but well below real potential</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Primary Learning Style</td>
+          <td class="val-cell">{{ report.learning_style }}</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Behaviour Pattern</td>
+          <td class="val-cell"><strong>{{ report.behaviour_pattern }}</strong></td>
+        </tr>
+      </table>
+
+      <div class="quote-box-blue">
+        <div class="quote-box-title">{{ report.personality_title }}</div>
+        <div class="quote-box-hindi">{{ report.personality_desc_hindi }}</div>
+        <div class="quote-box-quote">"{{ report.personality_quote }}" — Psychometric Assessment Summary</div>
+      </div>
+
+      <div class="two-col-grid">
+        <div class="col-card">
+          <div class="col-card-title">Performance Snapshot</div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Analytical Thinking</span><span>{{ report.performance.analytical_thinking }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-blue" style="width: {{ report.performance.analytical_thinking }}%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Creativity</span><span>{{ report.performance.creativity }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-green" style="width: {{ report.performance.creativity }}%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Consistency</span><span>{{ report.performance.consistency }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-red" style="width: {{ report.performance.consistency }}%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Discipline</span><span>{{ report.performance.discipline }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-orange" style="width: {{ report.performance.discipline }}%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Leadership Potential</span><span>{{ report.performance.leadership_potential }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-blue" style="width: {{ report.performance.leadership_potential }}%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Emotional Control</span><span>{{ report.performance.emotional_control }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-green" style="width: {{ report.performance.emotional_control }}%;"></div></div>
+          </div>
+        </div>
+
+        <div class="col-card">
+          <div class="col-card-title">02 / 10 Core Personality — Behaviour Snapshot</div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Start Enthusiasm</span><span>{{ report.behaviour.start_enthusiasm }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-green" style="width: {{ report.behaviour.start_enthusiasm }}%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Task Completion</span><span>{{ report.behaviour.task_completion }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-red" style="width: {{ report.behaviour.task_completion }}%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Planning Strength</span><span>{{ report.behaviour.planning_strength }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-blue" style="width: {{ report.behaviour.planning_strength }}%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Mid-task Follow Through</span><span>{{ report.behaviour.mid_task_follow_through }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-red" style="width: {{ report.behaviour.mid_task_follow_through }}%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Self-Correction</span><span>{{ report.behaviour.self_correction }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-green" style="width: {{ report.behaviour.self_correction }}%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Conflict Handling</span><span>{{ report.behaviour.conflict_handling }}%</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill fill-orange" style="width: {{ report.behaviour.conflict_handling }}%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col-grid" style="margin-bottom: 0;">
+        <div class="col-card">
+          <div class="col-card-title">HIDDEN TRAITS</div>
+          <ul class="custom-bullets">
+            {% for trait in report.hidden_traits %}
+            <li>{{ trait }}</li>
+            {% endfor %}
+            <li>Internal dialogue: "{{ report.internal_dialogue }}"</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <div class="col-card-title">COMMUNICATION STYLE</div>
+          <ul class="custom-bullets">
+            {% for style in report.communication_style %}
+            <li>{{ style }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>PSYCHOMETRIC ASSESSMENT · {{ report.student.name.upper() }} · {{ report.student.student_class.upper() }} · CONFIDENTIAL<span class="gold">2</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 3: DEEP MINDSET & COGNITIVE PROFILE ==================== -->
+  <div class="page">
+    <div class="inner-container">
+      <div class="section-banner-navy first">Cognitive Architecture &amp; Psychological Triggers</div>
+      
+      <div class="quote-box-blue" style="margin-top: 14px; margin-bottom: 18px;">
+        <div class="quote-box-title">Deep Mindset Insight: Result-Oriented Validation vs Intrinsic Mastery</div>
+        <div class="quote-box-hindi">जब आत्म-विश्वास सिर्फ परीक्षा के अंकों पर निर्भर करता है, तब कठिन प्रश्नों से बचने की स्वाभाविक प्रवृत्ति जन्म लेती है।</div>
+        <div class="quote-box-quote">Internal Core Belief: "{{ report.internal_dialogue }}"</div>
+      </div>
+
+      <div class="two-col-grid" style="margin-bottom: 18px;">
+        <div class="col-card">
+          <div class="col-card-title">The Cognitive Retention Cycle</div>
+          <p style="font-size: 9pt; color: #444; line-height: 1.5; margin-bottom: 8px;">
+            {{ report.student.name }} possesses high analytical grasp ({{ report.performance.analytical_thinking }}%). Conceptual absorption is fast during auditory lectures and guided discussions. However, without immediate self-driven consolidation, memory retention drops sharply after 48 hours.
+          </p>
+          <ul class="custom-bullets">
+            <li><strong>Lecture Grasp:</strong> 85% immediate understanding during live teaching</li>
+            <li><strong>Unprompted Revision:</strong> Under 30% execution rate without supervision</li>
+            <li><strong>Retention Degradation:</strong> Concepts become blurred before examinations</li>
+          </ul>
+        </div>
+
+        <div class="col-card">
+          <div class="col-card-title">Unspoken Pressures &amp; Family Environment</div>
+          <p style="font-size: 9pt; color: #444; line-height: 1.5; margin-bottom: 8px;">
+            Coming from a respected family background ({{ report.student.father_occupation or 'Well-educated family' }}), the student carries high internal expectations. While family pressure may not be vocalized, the implicit fear of underperforming leads to hesitation and premature disengagement.
+          </p>
+          <ul class="custom-bullets">
+            <li>Fear of comparison with high-achieving peers or relatives</li>
+            <li>Prefers avoiding a task over attempting and failing publicly</li>
+            <li>Needs explicit permission to make mistakes as learning milestones</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-banner-navy">Key Intervention Roadmap for Parents &amp; Teachers</div>
+      <table class="data-table" style="margin-top: 10px;">
+        <thead>
+          <tr>
+            <th>Observation Area</th>
+            <th>Current Subconscious Reaction</th>
+            <th>Recommended Mentorship Response</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Challenging Homework</strong></td>
+            <td>Stops after 5–10 mins; assumes "I don't have interest"</td>
+            <td>Normalize being stuck. Praise the 15-minute struggle rather than quick correct answers.</td>
+          </tr>
+          <tr>
+            <td><strong>Academic Score Drops</strong></td>
+            <td>Loss of confidence; emotional withdrawal from study routine</td>
+            <td>Separate self-worth from percentage marks. Focus on error logs and systematic retries.</td>
+          </tr>
+          <tr>
+            <td><strong>New Subject Introductions</strong></td>
+            <td>High initial burst of enthusiasm that fades quickly</td>
+            <td>Establish small daily micro-goals (20 mins) with zero tolerance for zero-work days.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="page-footer">
+      <div>PSYCHOMETRIC ASSESSMENT · {{ report.student.name.upper() }} · {{ report.student.student_class.upper() }} · CONFIDENTIAL<span class="gold">3</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 4: TOP 7 STRENGTHS ==================== -->
+  <div class="page">
+    <div class="inner-container">
+      <div class="section-banner-navy first">03 / 10 Strengths — Top 7</div>
+
+      <table class="strengths-table">
+        {% for s in report.strengths %}
+        <tr>
+          <td style="width: 14%;"><div class="s-badge">{{ s.code }}</div></td>
+          <td style="width: 66%;">
+            <div class="s-title">{{ s.title }}</div>
+            <div class="s-desc">{{ s.description }}</div>
+          </td>
+          <td style="width: 20%; text-align: right;">
+            {% if s.tag == 'KEY STRENGTH' %}
+            <span class="pill-key-strength">● KEY STRENGTH</span>
+            {% else %}
+            <span class="pill-rare-trait">● RARE TRAIT</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="page-footer">
+      <div>PSYCHOMETRIC ASSESSMENT · {{ report.student.name.upper() }} · {{ report.student.student_class.upper() }} · CONFIDENTIAL<span class="gold">4</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 5: RISK AREAS ==================== -->
+  <div class="page">
+    <div class="inner-container">
+      <div class="section-banner-navy first">04 / 10 Risk Areas — Most Important</div>
+      <div class="risk-alert-subtext">⚠ यह section sugar-coat नहीं है। यह honest observation है — parents और teachers दोनों के लिए:</div>
+
+      <table class="risk-table">
+        {% for r in report.risks %}
+        <tr>
+          <td style="width: 14%;"><div class="r-badge">{{ r.code }}</div></td>
+          <td style="width: 66%;">
+            <div class="r-title">{{ r.title }}</div>
+            <div class="r-desc">{{ r.description }}</div>
+          </td>
+          <td style="width: 20%; text-align: right;">
+            {% if 'HIGH' in r.severity %}
+            <span class="pill-high-risk">🔴 {{ r.severity }}</span>
+            {% else %}
+            <span class="pill-med-risk">🟡 {{ r.severity }}</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="page-footer">
+      <div>PSYCHOMETRIC ASSESSMENT · {{ report.student.name.upper() }} · {{ report.student.student_class.upper() }} · CONFIDENTIAL<span class="gold">5</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 6: WORK PATTERN & RED FLAGS ==================== -->
+  <div class="page">
+    <div class="inner-container">
+      <div class="section-banner-navy first">05 / 10 Work Pattern &amp; Execution Gap</div>
+      <div style="font-size: 10pt; font-weight: 700; color: #1b2d6b; margin-bottom: 12px;">
+        सबसे critical gap यहाँ है — Planning decent है, लेकिन Execution follow नहीं करती।
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <div class="funnel-row">
+          <div class="funnel-label">Idea Generation</div>
+          <div class="funnel-bar-box"><div class="funnel-bar-inner fill-green" style="width: {{ report.execution_funnel.idea_generation }}%;"></div></div>
+          <div class="funnel-val">{{ report.execution_funnel.idea_generation }}%</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Planning &amp; Strategy</div>
+          <div class="funnel-bar-box"><div class="funnel-bar-inner fill-blue" style="width: {{ report.execution_funnel.planning_strategy }}%;"></div></div>
+          <div class="funnel-val">{{ report.execution_funnel.planning_strategy }}%</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Initial Execution</div>
+          <div class="funnel-bar-box"><div class="funnel-bar-inner fill-blue" style="width: {{ report.execution_funnel.initial_execution }}%;"></div></div>
+          <div class="funnel-val">{{ report.execution_funnel.initial_execution }}%</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Mid-task Follow Through</div>
+          <div class="funnel-bar-box"><div class="funnel-bar-inner fill-red" style="width: {{ report.execution_funnel.mid_task_follow_through }}%;"></div></div>
+          <div class="funnel-val">{{ report.execution_funnel.mid_task_follow_through }}%</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Task Completion Rate</div>
+          <div class="funnel-bar-box"><div class="funnel-bar-inner fill-red" style="width: {{ report.execution_funnel.task_completion_rate }}%;"></div></div>
+          <div class="funnel-val">{{ report.execution_funnel.task_completion_rate }}%</div>
+        </div>
+      </div>
+
+      <div class="quote-box-blue" style="margin-bottom: 14px;">
+        <div class="quote-box-quote" style="color: #1b2d6b; font-size: 10.5pt; text-align: center;">
+          "{{ report.execution_quote }}"
+        </div>
+      </div>
+
+      <div class="section-banner-navy">06 / 10 Critical Red Flags</div>
+      {% for rf in report.red_flags %}
+      <div class="red-flag-card {% if rf.severity == 'MEDIUM' %}medium{% endif %}">
+        <div class="rf-badge {% if rf.severity == 'HIGH' %}high{% else %}medium{% endif %}">
+          {% if rf.severity == 'HIGH' %}🔴 HIGH{% else %}🟡 MEDIUM{% endif %}
+        </div>
+        <div>
+          <div class="rf-title">{{ rf.title }}</div>
+          <div class="rf-desc">{{ rf.description }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="page-footer">
+      <div>PSYCHOMETRIC ASSESSMENT · {{ report.student.name.upper() }} · {{ report.student.student_class.upper() }} · CONFIDENTIAL<span class="gold">6</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 7: MINDSET SHIFTS & CAREER FIT ==================== -->
+  <div class="page">
+    <div class="inner-container">
+      <div class="section-banner-navy first">07 / 10 Required Mindset Shifts</div>
+
+      <div style="margin-bottom: 16px;">
+        {% for ms in report.mindset_shifts %}
+        <div class="mindset-row">
+          <div class="mindset-box avoid">
+            <span style="font-weight: 800; margin-right: 6px;">AVOID ✕</span> "{{ ms.avoid_quote }}"
+          </div>
+          <div class="mindset-arrow">→</div>
+          <div class="mindset-box adopt">
+            <span style="font-weight: 800; margin-right: 6px;">ADOPT ✓</span> "{{ ms.adopt_quote }}"
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="section-banner-navy">08 / 10 Career Inclination Analysis</div>
+      <div class="quote-box-blue" style="margin-bottom: 12px; padding: 8px 12px;">
+        <div style="font-size: 9.5pt; color: #1b2d6b; font-weight: 600;">
+          {{ report.career_inclination_summary }}
+        </div>
+      </div>
+
+      <div class="two-col-grid" style="margin-bottom: 0;">
+        <div class="career-fit-card">
+          <div style="font-size: 10.5pt; font-weight: 800; color: #1a6b3a; margin-bottom: 10px; border-bottom: 1.5px solid #1a6b3a; padding-bottom: 4px;">
+            BEST FIT CAREERS
+          </div>
+          {% for c in report.best_fit_careers %}
+          <div class="career-item">
+            <div class="ci-title">
+              <span>✔ {{ c.title }}</span>
+              <span class="ci-fit-badge {% if 'HIGH' in c.fit_level %}high{% elif 'GOOD' in c.fit_level %}good{% else %}mod{% endif %}">{{ c.fit_level }}</span>
+            </div>
+            <div class="ci-sub">{{ c.subtext }}</div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="career-fit-card">
+          <div style="font-size: 10.5pt; font-weight: 800; color: #c0392b; margin-bottom: 10px; border-bottom: 1.5px solid #c0392b; padding-bottom: 4px;">
+            NOT SUITABLE
+          </div>
+          <ul class="custom-bullets" style="margin-top: 6px;">
+            {% for ns in report.not_suitable_careers %}
+            <li style="color: #555; margin-bottom: 8px;">✘ {{ ns }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>PSYCHOMETRIC ASSESSMENT · {{ report.student.name.upper() }} · {{ report.student.student_class.upper() }} · CONFIDENTIAL<span class="gold">7</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 8: ACTION PLAN & FINAL VERDICT ==================== -->
+  <div class="page">
+    <div class="inner-container">
+      <div class="section-banner-navy first">09 / 10 Action Plan — Highly Practical</div>
+
+      <table class="action-table">
+        <thead>
+          <tr>
+            <th style="width: 14%;">Frequency</th>
+            <th style="width: 24%;">Focus Area</th>
+            <th style="width: 44%;">Action Steps</th>
+            <th style="width: 18%;">Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ap in report.action_plan %}
+          <tr>
+            <td><span class="freq-badge">{{ ap.frequency }}</span></td>
+            <td><strong>{{ ap.focus_area }}</strong></td>
+            <td>{{ ap.action_steps }}</td>
+            <td style="color: #2e4d8f; font-weight: 600;">{{ ap.purpose }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="section-banner-navy" style="margin-top: 10px;">10 / 10 Final Verdict</div>
+      <div class="quote-box-blue" style="margin-bottom: 10px; padding: 6px 12px; text-align: center;">
+        <div class="quote-box-quote" style="color: #1b2d6b; font-size: 10pt;">
+          "{{ report.final_verdict_quote }}"
+        </div>
+      </div>
+
+      <div class="verdict-grid">
+        <div class="verdict-box no-imp">
+          <div class="verdict-box-title">🔴 IF NO IMPROVEMENT</div>
+          <ul style="list-style: none; padding-left: 0;">
+            {% for ni in report.if_no_improvement %}
+            <li>— {{ ni }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="verdict-box corr">
+          <div class="verdict-box-title">✓ IF CORRECTED NOW</div>
+          <ul style="list-style: none; padding-left: 0;">
+            {% for cn in report.if_corrected_now %}
+            <li>✔ {{ cn }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="letter-box">
+        <div class="letter-head">{{ report.personal_letter_student_name }} — एक बात:</div>
+        <div class="letter-body">{{ report.personal_letter_content }}</div>
+        <div class="letter-quote">"{{ report.personal_letter_signoff }}"</div>
+      </div>
+
+      <div class="signature-block">
+        Assessed &amp; Reported by: {{ report.student.assessor_name }} | Dodia Academy of Education | {{ report.student.assessor_phone }} | {{ report.student.assessment_date }}
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>PSYCHOMETRIC ASSESSMENT · {{ report.student.name.upper() }} · {{ report.student.student_class.upper() }} · CONFIDENTIAL<span class="gold">8</span></div>
+    </div>
+  </div>
+
+</body>
+</html>

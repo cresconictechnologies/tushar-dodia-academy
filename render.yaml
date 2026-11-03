@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: tushar-dodia-academy
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: Dockerfile
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 8000

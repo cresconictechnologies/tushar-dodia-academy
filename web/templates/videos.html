@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Video Wisdom Vault (160 Episodes) | Mr. Tushar Dodia{% endblock %}
+
+{% block content %}
+<!-- Page Hero Banner -->
+<section class="page-hero">
+  <div class="container">
+    <div style="display: inline-flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <img src="/static/img/tushar_dodia/hero_avatar.jpg" alt="Tushar Dodia" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--royal-blue); object-fit: cover;">
+      <div style="font-weight: 700; color: var(--royal-blue); font-size: 0.95rem;">85,000+ Viewers &middot; "2 Mins Thought" with Tushar Sir</div>
+    </div>
+    <h1 class="page-hero-title">Video Wisdom Vault &amp; "2 Mins Thought"</h1>
+    <p class="page-hero-subtitle">
+      Explore over 160 video episodes addressing psychological resilience, Ramayana &amp; Mahabharata leadership lessons, study strategies, and cooperative banking excellence.
+    </p>
+  </div>
+</section>
+
+<!-- Videos Exploration Section -->
+<section style="padding: 60px 0 90px; background: #ffffff;">
+  <div class="container">
+    
+    <div class="section-header" style="margin-bottom: 24px;">
+      <h2 class="section-title">Explore Video Archives</h2>
+      <p class="section-subtitle">Search or filter through 160 curated episodes by topic and category.</p>
+    </div>
+
+    <!-- Instant Search Bar -->
+    <div class="videos-search-bar">
+      <i class="fa-solid fa-magnifying-glass videos-search-icon"></i>
+      <input type="text" id="videoSearchInput" class="videos-search-input" placeholder="Search across 160 video episodes (e.g., Urmila, Bank, Student, Problem, Ramayana)...">
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="filter-pills-container">
+      <button class="filter-pill active" data-videocat="all">All Videos</button>
+      <button class="filter-pill" data-videocat="2mins">2 Mins Thought Series</button>
+      <button class="filter-pill" data-videocat="student">Student Focus &amp; Exams</button>
+      <button class="filter-pill" data-videocat="finance">Banking &amp; Financial Literacy</button>
+      <button class="filter-pill" data-videocat="parenting">Parenting &amp; Sanskar</button>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 10px; border-bottom: 1px solid var(--border-light);">
+      <span id="videoCountBadge" style="font-size: 0.88rem; font-weight: 700; color: var(--gold-dark); text-transform: uppercase;">
+        Loading 160 Video Episodes...
+      </span>
+      <a href="https://www.youtube.com/@TusharDodia" target="_blank" style="color: #b91c1c; font-weight: 700; font-size: 0.88rem; text-decoration: none;">
+        <i class="fa-brands fa-youtube" style="color:#dc2626;"></i> Subscribe on YouTube Channel
+      </a>
+    </div>
+
+    <!-- Videos Grid (Loaded dynamically by videos.js from /api/videos) -->
+    <div id="videosGrid" class="videos-grid">
+      <div style="grid-column: 1/-1; text-align: center; padding: 60px 0; color: #64748b;">
+        <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: var(--gold-accent); margin-bottom: 12px; display: block;"></i>
+        Loading video catalog...
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Inline Video Player Modal -->
+<div id="videoPlayerModal" class="video-player-modal">
+  <div style="position: relative; max-width: 850px; width: 100%;">
+    <div style="display: flex; justify-content: space-between; align-items: center; color: #fff; margin-bottom: 10px;">
+      <h3 id="videoModalTitle" style="font-size: 1rem; font-weight: 700; margin: 0; color: #fff; max-width: 80%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Playing Video</h3>
+      <button id="videoPlayerClose" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">&times;</button>
+    </div>
+    <div class="video-player-inner">
+      <iframe id="videoIframe" class="video-player-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/videos.js"></script>
+{% endblock %}

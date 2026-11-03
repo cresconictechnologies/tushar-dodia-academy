@@ -1,0 +1,525 @@
+[
+  {
+    "id": "DA-2026-JR-8792",
+    "tier": "junior",
+    "student_name": "Aarav Kulkarni",
+    "student_class": "Class 4th (Primary)",
+    "school_name": "St. Xavier's Academy, Pune",
+    "parent_name": "Siddharth Kulkarni",
+    "parent_phone": "+91 97654 32109",
+    "parent_email": "siddharth.kulkarni@example.com",
+    "created_at": "2026-11-03 18:52:23",
+    "academic_score": 88,
+    "consistency_score": 48,
+    "idea_score": 92,
+    "completion_score": 40,
+    "execution_gap": 52,
+    "consistency_risk": "HIGH RISK",
+    "status": "New Submission",
+    "notes": "Submitted via online diagnostic portal. Execution Gap: 52%. Pending clinical debrief review by Mr. Tushar Dodia.",
+    "pdf_filename": "Aarav_Kulkarni_DA-2026-JR-8792.pdf",
+    "performance": {
+      "analytical_thinking": 88,
+      "creativity": 92,
+      "consistency": 48,
+      "discipline": 43,
+      "leadership_potential": 90,
+      "emotional_control": 55
+    },
+    "behaviour": {
+      "start_enthusiasm": 92,
+      "task_completion": 40,
+      "planning_strength": 74,
+      "mid_task_follow_through": 40,
+      "self_correction": 60,
+      "conflict_handling": 45
+    },
+    "strengths": [
+      "J-01: High Natural Curiosity & Visual-Sensory Grasping (92%)",
+      "J-02: Strong Active Learning Readiness (88%)",
+      "J-03: Responsive to Storytelling and Positive Parental Praise"
+    ],
+    "risks": [
+      "J-R01: Early Habit Vulnerability (48%) in Unstructured Environments",
+      "J-R02: High Attraction to Screen Distractions & Quick Dopamine",
+      "J-R03: Restlessness During Long Static Study Periods"
+    ],
+    "user_answers": {
+      "j1": 0,
+      "j2": 1,
+      "j3": 1,
+      "j4": 1,
+      "j5": 2
+    }
+  },
+  {
+    "id": "DA-2026-SR-6750",
+    "tier": "senior",
+    "student_name": "Kavya Deshpande",
+    "student_class": "Class 10th (CBSE)",
+    "school_name": "DAV Public School, Pune",
+    "parent_name": "Dr. Rajesh Deshpande",
+    "parent_phone": "+91 98811 22334",
+    "parent_email": "rajesh.deshpande@example.com",
+    "created_at": "2026-11-03 18:52:19",
+    "academic_score": 88,
+    "consistency_score": 42,
+    "idea_score": 94,
+    "completion_score": 38,
+    "execution_gap": 56,
+    "consistency_risk": "HIGH RISK",
+    "status": "Evaluated by Tushar Sir",
+    "notes": "Strong aptitude. High creative spark with moderate execution lag.",
+    "pdf_filename": "Kavya_Deshpande_DA-2026-SR-6750.pdf",
+    "performance": {
+      "analytical_thinking": 88,
+      "creativity": 94,
+      "consistency": 42,
+      "discipline": 37,
+      "leadership_potential": 91,
+      "emotional_control": 55
+    },
+    "behaviour": {
+      "start_enthusiasm": 94,
+      "task_completion": 38,
+      "planning_strength": 74,
+      "mid_task_follow_through": 38,
+      "self_correction": 60,
+      "conflict_handling": 45
+    },
+    "strengths": [
+      "S-01: Strong Conceptual & Analytical Aptitude (88%)",
+      "S-02: High Initial Ideation Momentum (94%)",
+      "S-03: Quick Grasp of Theoretical Frameworks"
+    ],
+    "risks": [
+      "R-01: Execution Gap of 56% Between Idea Spark and Completion",
+      "R-02: Consistency Vulnerability Index (42%) under unstructured study blocks",
+      "R-03: Vulnerability to Screen Distractions"
+    ],
+    "user_answers": {}
+  },
+  {
+    "id": "DA-2026-SR-4311",
+    "tier": "senior",
+    "student_name": "Pranav Kulkarni",
+    "student_class": "Class 10th (CBSE)",
+    "school_name": "Rajarshi Shahu Academy, Pune",
+    "parent_name": "Parent of Pranav Kulkarni",
+    "parent_phone": "+91 98220 11223",
+    "parent_email": "pranav.kulkarni@example.com",
+    "created_at": "2026-11-03 18:44:02",
+    "academic_score": 92,
+    "consistency_score": 87,
+    "idea_score": 88,
+    "completion_score": 87,
+    "execution_gap": 1,
+    "consistency_risk": "STABLE EXECUTION",
+    "status": "New Submission",
+    "notes": "Submitted via online diagnostic portal. Execution Gap: 1%. Pending clinical debrief review by Mr. Tushar Dodia.",
+    "pdf_filename": "Pranav_Kulkarni_DA-2026-SR-4311.pdf",
+    "performance": {
+      "analytical_thinking": 92,
+      "creativity": 88,
+      "consistency": 87,
+      "discipline": 78,
+      "leadership_potential": 90,
+      "emotional_control": 55
+    },
+    "behaviour": {
+      "start_enthusiasm": 88,
+      "task_completion": 87,
+      "planning_strength": 78,
+      "mid_task_follow_through": 87,
+      "self_correction": 60,
+      "conflict_handling": 45
+    },
+    "strengths": [
+      "S-01: Strong Conceptual & Analytical Aptitude (92%)",
+      "S-02: High Initial Ideation Momentum (88%)",
+      "S-03: Quick Grasp of Theoretical Frameworks"
+    ],
+    "risks": [
+      "R-01: Execution Gap of 1% Between Idea Spark and Completion",
+      "R-02: Consistency Vulnerability Index (87%) under unstructured study blocks",
+      "R-03: Vulnerability to Screen Distractions"
+    ],
+    "user_answers": {
+      "s1": 0,
+      "s2": 0,
+      "s3": 0,
+      "s4": 0,
+      "s5": 0
+    }
+  },
+  {
+    "id": "DA-2026-JR-9817",
+    "tier": "junior",
+    "student_name": "Aarav Kulkarni",
+    "student_class": "Class 4th (Primary)",
+    "school_name": "St. Xavier's Academy, Pune",
+    "parent_name": "Siddharth Kulkarni",
+    "parent_phone": "+91 97654 32109",
+    "parent_email": "siddharth.kulkarni@example.com",
+    "created_at": "2026-11-03 18:42:49",
+    "academic_score": 88,
+    "consistency_score": 48,
+    "idea_score": 92,
+    "completion_score": 40,
+    "execution_gap": 52,
+    "consistency_risk": "HIGH RISK",
+    "status": "New Submission",
+    "notes": "Submitted via online diagnostic portal. Execution Gap: 52%. Pending clinical debrief review by Mr. Tushar Dodia.",
+    "pdf_filename": "Aarav_Kulkarni_DA-2026-JR-9817.pdf",
+    "performance": {
+      "analytical_thinking": 88,
+      "creativity": 92,
+      "consistency": 48,
+      "discipline": 43,
+      "leadership_potential": 90,
+      "emotional_control": 55
+    },
+    "behaviour": {
+      "start_enthusiasm": 92,
+      "task_completion": 40,
+      "planning_strength": 74,
+      "mid_task_follow_through": 40,
+      "self_correction": 60,
+      "conflict_handling": 45
+    },
+    "strengths": [
+      "J-01: High Natural Curiosity & Visual-Sensory Grasping (92%)",
+      "J-02: Strong Active Learning Readiness (88%)",
+      "J-03: Responsive to Storytelling and Positive Parental Praise"
+    ],
+    "risks": [
+      "J-R01: Early Habit Vulnerability (48%) in Unstructured Environments",
+      "J-R02: High Attraction to Screen Distractions & Quick Dopamine",
+      "J-R03: Restlessness During Long Static Study Periods"
+    ],
+    "user_answers": {
+      "j1": 0,
+      "j2": 1,
+      "j3": 1,
+      "j4": 1,
+      "j5": 2
+    }
+  },
+  {
+    "id": "DA-2026-SR-7196",
+    "tier": "senior",
+    "student_name": "Kavya Deshpande",
+    "student_class": "Class 10th (CBSE)",
+    "school_name": "DAV Public School, Pune",
+    "parent_name": "Dr. Rajesh Deshpande",
+    "parent_phone": "+91 98811 22334",
+    "parent_email": "rajesh.deshpande@example.com",
+    "created_at": "2026-11-03 18:42:41",
+    "academic_score": 88,
+    "consistency_score": 42,
+    "idea_score": 94,
+    "completion_score": 38,
+    "execution_gap": 56,
+    "consistency_risk": "HIGH RISK",
+    "status": "Evaluated by Tushar Sir",
+    "notes": "Strong aptitude. High creative spark with moderate execution lag.",
+    "pdf_filename": "Kavya_Deshpande_DA-2026-SR-7196.pdf",
+    "performance": {
+      "analytical_thinking": 88,
+      "creativity": 94,
+      "consistency": 42,
+      "discipline": 37,
+      "leadership_potential": 91,
+      "emotional_control": 55
+    },
+    "behaviour": {
+      "start_enthusiasm": 94,
+      "task_completion": 38,
+      "planning_strength": 74,
+      "mid_task_follow_through": 38,
+      "self_correction": 60,
+      "conflict_handling": 45
+    },
+    "strengths": [
+      "S-01: Strong Conceptual & Analytical Aptitude (88%)",
+      "S-02: High Initial Ideation Momentum (94%)",
+      "S-03: Quick Grasp of Theoretical Frameworks"
+    ],
+    "risks": [
+      "R-01: Execution Gap of 56% Between Idea Spark and Completion",
+      "R-02: Consistency Vulnerability Index (42%) under unstructured study blocks",
+      "R-03: Vulnerability to Screen Distractions"
+    ],
+    "user_answers": {}
+  },
+  {
+    "id": "DA-2026-SR-8845",
+    "tier": "senior",
+    "student_name": "Pranav Kulkarni",
+    "student_class": "Class 10th (CBSE)",
+    "school_name": "Rajarshi Shahu Academy, Pune",
+    "parent_name": "Parent of Pranav Kulkarni",
+    "parent_phone": "+91 98220 11223",
+    "parent_email": "pranav.kulkarni@example.com",
+    "created_at": "2026-11-03 18:25:35",
+    "academic_score": 92,
+    "consistency_score": 87,
+    "idea_score": 88,
+    "completion_score": 87,
+    "execution_gap": 1,
+    "consistency_risk": "STABLE EXECUTION",
+    "status": "New Submission",
+    "notes": "Submitted via online diagnostic portal. Execution Gap: 1%. Pending clinical debrief review by Mr. Tushar Dodia.",
+    "pdf_filename": "Shardul_Jadhao_Psychometric_Report.pdf",
+    "performance": {
+      "analytical_thinking": 92,
+      "creativity": 88,
+      "consistency": 87,
+      "discipline": 78,
+      "leadership_potential": 90,
+      "emotional_control": 55
+    },
+    "behaviour": {
+      "start_enthusiasm": 88,
+      "task_completion": 87,
+      "planning_strength": 78,
+      "mid_task_follow_through": 87,
+      "self_correction": 60,
+      "conflict_handling": 45
+    },
+    "strengths": [
+      "S-01: Strong Conceptual & Analytical Aptitude (92%)",
+      "S-02: High Initial Ideation Momentum (88%)",
+      "S-03: Quick Grasp of Theoretical Frameworks"
+    ],
+    "risks": [
+      "R-01: Execution Gap of 1% Between Idea Spark and Completion",
+      "R-02: Consistency Vulnerability Index (87%) under unstructured study blocks",
+      "R-03: Vulnerability to Screen Distractions"
+    ]
+  },
+  {
+    "id": "DA-2026-SR-2011",
+    "tier": "senior",
+    "student_name": "Kavya Deshpande",
+    "student_class": "Class 10th (CBSE)",
+    "school_name": "DAV Public School, Pune",
+    "parent_name": "Dr. Rajesh Deshpande",
+    "parent_phone": "+91 98811 22334",
+    "parent_email": "rajesh.deshpande@example.com",
+    "created_at": "2026-11-03 18:23:26",
+    "academic_score": 88,
+    "consistency_score": 42,
+    "idea_score": 94,
+    "completion_score": 38,
+    "execution_gap": 56,
+    "consistency_risk": "HIGH RISK",
+    "status": "Evaluated by Tushar Sir",
+    "notes": "Strong aptitude. High creative spark with moderate execution lag.",
+    "pdf_filename": "Shardul_Jadhao_Psychometric_Report.pdf",
+    "performance": {
+      "analytical_thinking": 88,
+      "creativity": 94,
+      "consistency": 42,
+      "discipline": 37,
+      "leadership_potential": 91,
+      "emotional_control": 55
+    },
+    "behaviour": {
+      "start_enthusiasm": 94,
+      "task_completion": 38,
+      "planning_strength": 74,
+      "mid_task_follow_through": 38,
+      "self_correction": 60,
+      "conflict_handling": 45
+    },
+    "strengths": [
+      "S-01: Strong Conceptual & Analytical Aptitude (88%)",
+      "S-02: High Initial Ideation Momentum (94%)",
+      "S-03: Quick Grasp of Theoretical Frameworks"
+    ],
+    "risks": [
+      "R-01: Execution Gap of 56% Between Idea Spark and Completion",
+      "R-02: Consistency Vulnerability Index (42%) under unstructured study blocks",
+      "R-03: Vulnerability to Screen Distractions"
+    ]
+  },
+  {
+    "id": "DA-2026-SR-0418",
+    "tier": "senior",
+    "student_name": "Shardul Jadhao",
+    "student_class": "Class IX (ICSE)",
+    "school_name": "Model High School, Buldhana",
+    "parent_name": "Mr. & Mrs. Jadhao",
+    "parent_phone": "+91 98224 51209",
+    "parent_email": "jadhao.family@example.com",
+    "created_at": "2026-03-24 10:30:00",
+    "academic_score": 85,
+    "consistency_score": 30,
+    "idea_score": 92,
+    "completion_score": 28,
+    "execution_gap": 64,
+    "consistency_risk": "HIGH RISK",
+    "status": "Evaluated by Tushar Sir",
+    "notes": "Acute Starter-vs-Finisher gap. High cognitive horsepower. Primary intervention: atomic habit rituals and screen habit audit before Class X board examinations.",
+    "pdf_filename": "Shardul_Jadhao_Psychometric_Report.pdf",
+    "performance": {
+      "analytical_thinking": 72,
+      "creativity": 58,
+      "consistency": 30,
+      "discipline": 40,
+      "leadership_potential": 50,
+      "emotional_control": 55
+    },
+    "behaviour": {
+      "start_enthusiasm": 85,
+      "task_completion": 35,
+      "planning_strength": 70,
+      "mid_task_follow_through": 32,
+      "self_correction": 65,
+      "conflict_handling": 38
+    },
+    "strengths": [
+      "S-01: High Creative Horsepower & Divergent Conceptualization",
+      "S-02: Rapid Conceptual Grasp Under Live Instruction",
+      "S-03: Strong Verbal Articulation in Small Group Discussions",
+      "S-04: Responds Positively to Objective, Data-Backed Feedback"
+    ],
+    "risks": [
+      "R-01: Severe Attrition Between Ideation (92%) and Final Execution (28%)",
+      "R-02: Smartphone Dopamine Distraction Disrupting Deep Study Blocks",
+      "R-03: Defensive Reaction Under Rote Memorization Pressure"
+    ]
+  },
+  {
+    "id": "DA-2026-SR-0419",
+    "tier": "senior",
+    "student_name": "Aditya Deshmukh",
+    "student_class": "Class X (State Board)",
+    "school_name": "Rajarshi Shahu Vidyalaya, Mehkar",
+    "parent_name": "Dr. V. N. Deshmukh",
+    "parent_phone": "+91 94231 87654",
+    "parent_email": "deshmukh.aditya@example.com",
+    "created_at": "2026-03-28 15:15:00",
+    "academic_score": 88,
+    "consistency_score": 45,
+    "idea_score": 88,
+    "completion_score": 45,
+    "execution_gap": 43,
+    "consistency_risk": "HIGH RISK",
+    "status": "Debrief Scheduled",
+    "notes": "Good baseline discipline, but stress builds up nearing test series. Needs Ramayana-derived poise exercises and daily sprint checklists.",
+    "pdf_filename": "Shardul_Jadhao_Psychometric_Report.pdf",
+    "performance": {
+      "analytical_thinking": 80,
+      "creativity": 65,
+      "consistency": 45,
+      "discipline": 50,
+      "leadership_potential": 60,
+      "emotional_control": 50
+    },
+    "behaviour": {
+      "start_enthusiasm": 80,
+      "task_completion": 45,
+      "planning_strength": 75,
+      "mid_task_follow_through": 45,
+      "self_correction": 70,
+      "conflict_handling": 55
+    },
+    "strengths": [
+      "S-01: Systematic Problem Deconstruction",
+      "S-02: Punctual Attendance and Peer Respect"
+    ],
+    "risks": [
+      "R-01: Exam Anxiety Inducing Calculation Errors",
+      "R-02: Over-Reliance on Last-Minute Revision"
+    ]
+  },
+  {
+    "id": "DA-2026-JR-0112",
+    "tier": "junior",
+    "student_name": "Ananya Kulkarni",
+    "student_class": "Class V (CBSE)",
+    "school_name": "Khamgaon Public School",
+    "parent_name": "Mr. Sachin Kulkarni",
+    "parent_phone": "+91 98230 98765",
+    "parent_email": "kulkarni.ananya@example.com",
+    "created_at": "2026-04-02 11:20:00",
+    "academic_score": 92,
+    "consistency_score": 60,
+    "idea_score": 85,
+    "completion_score": 58,
+    "execution_gap": 27,
+    "consistency_risk": "MODERATE",
+    "status": "New Submission",
+    "notes": "Kinesthetic learner. Flourishes when concepts are paired with physical models and practical games. Parent advised on routine consistency.",
+    "pdf_filename": "Shardul_Jadhao_Psychometric_Report.pdf",
+    "performance": {
+      "analytical_thinking": 68,
+      "creativity": 82,
+      "consistency": 60,
+      "discipline": 65,
+      "leadership_potential": 55,
+      "emotional_control": 62
+    },
+    "behaviour": {
+      "start_enthusiasm": 90,
+      "task_completion": 60,
+      "planning_strength": 55,
+      "mid_task_follow_through": 58,
+      "self_correction": 60,
+      "conflict_handling": 65
+    },
+    "strengths": [
+      "S-01: High Creative Curiosity",
+      "S-02: Enthusiastic Storyteller and Active Participant"
+    ],
+    "risks": [
+      "R-01: Rapid Boredom with Repetitive Writing Drills"
+    ]
+  },
+  {
+    "id": "DA-2026-SR-0420",
+    "tier": "senior",
+    "student_name": "Rohan Patil",
+    "student_class": "Class XI (Commerce)",
+    "school_name": "Balgandharva Junior College, Pune",
+    "parent_name": "Mrs. Sunita Patil",
+    "parent_phone": "+91 97654 32109",
+    "parent_email": "patil.rohan@example.com",
+    "created_at": "2026-04-10 17:40:00",
+    "academic_score": 78,
+    "consistency_score": 35,
+    "idea_score": 95,
+    "completion_score": 30,
+    "execution_gap": 65,
+    "consistency_risk": "HIGH RISK",
+    "status": "Pending Review",
+    "notes": "Strong interest in Stock Markets & Banking. Dislikes theoretical rote learning. High potential for CFA track if execution discipline is built.",
+    "pdf_filename": "Shardul_Jadhao_Psychometric_Report.pdf",
+    "performance": {
+      "analytical_thinking": 75,
+      "creativity": 70,
+      "consistency": 35,
+      "discipline": 42,
+      "leadership_potential": 68,
+      "emotional_control": 48
+    },
+    "behaviour": {
+      "start_enthusiasm": 92,
+      "task_completion": 32,
+      "planning_strength": 68,
+      "mid_task_follow_through": 30,
+      "self_correction": 58,
+      "conflict_handling": 50
+    },
+    "strengths": [
+      "S-01: High Financial Intuition and Commercial Curiosity",
+      "S-02: Strong Natural Leadership Among Peers"
+    ],
+    "risks": [
+      "R-01: Severe Execution Funnel Drop-off (Idea 95% -> Completion 30%)",
+      "R-02: Multitasking Overload and Fragmented Attention"
+    ]
+  }
+]

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Tushar Dodia | Modern Strategy. Ancient Wisdom.{% endblock %}</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="/static/img/tushar_dodia/hero_avatar.jpg">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/animations.css">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-brand">
+        <div class="nav-avatar-box">
+          <img src="/static/img/tushar_dodia/hero_avatar.jpg" alt="Mr. Tushar Dodia" class="nav-avatar-img">
+        </div>
+        <div class="brand-text-block">
+          <span class="brand-title">TUSHAR DODIA</span>
+          <span class="brand-subtitle">STRATEGIST · MENTOR · EDUCATIONIST</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link {% if active_page == 'home' %}active{% endif %}">Home</a></li>
+        <li><a href="/about" class="nav-link {% if active_page == 'about' %}active{% endif %}">About Tushar Sir</a></li>
+        <li><a href="/assessment" class="nav-link {% if active_page == 'assessment' %}active{% endif %}">Psychometric Test</a></li>
+        <li><a href="/services" class="nav-link {% if active_page == 'services' %}active{% endif %}">Programs &amp; Pricing</a></li>
+        <li><a href="/gallery" class="nav-link {% if active_page == 'gallery' %}active{% endif %}">In Action (100 Photos)</a></li>
+        <li><a href="/videos" class="nav-link {% if active_page == 'videos' %}active{% endif %}">2 Mins Thought (160)</a></li>
+        <li><a href="/contact" class="nav-link {% if active_page == 'contact' %}active{% endif %}">Contact</a></li>
+      </ul>
+
+      <div style="display: flex; align-items: center; gap: 14px;">
+        {% if is_admin %}
+        <a href="/admin" style="background: var(--royal-navy); color: #ffffff; font-size: 0.78rem; font-weight: 800; padding: 6px 12px; border-radius: var(--radius-full); text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+          <i class="fa-solid fa-gauge-high" style="color: #fde047;"></i> Admin
+        </a>
+        {% endif %}
+        <a href="https://wa.me/917741823212?text=Hello%20Tushar%20Sir%2C%20I%20would%20like%20to%20consult%20with%20you" target="_blank" class="nav-cta-btn">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>Direct Line</span>
+        </a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body Content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Sticky Direct WhatsApp Consultation Pill with Tushar Sir's photo -->
+  <a href="https://wa.me/917741823212?text=Hello%20Tushar%20Sir%2C%20I%20would%20like%20to%20consult%20regarding%20your%20programs" target="_blank" class="floating-consult-pill" title="Chat directly with Mr. Tushar Dodia">
+    <div class="floating-avatar-box">
+      <img src="/static/img/tushar_dodia/hero_avatar.jpg" alt="Tushar Dodia" class="floating-avatar-img">
+      <span class="online-indicator"></span>
+    </div>
+    <div class="floating-pill-text">
+      <div class="floating-pill-title">Talk to Tushar Sir</div>
+      <div class="floating-pill-sub"><i class="fa-brands fa-whatsapp"></i> Direct WhatsApp</div>
+    </div>
+  </a>
+
+  <!-- Master Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+          <img src="/static/img/tushar_dodia/hero_avatar.jpg" alt="Tushar Dodia" style="width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--royal-blue); object-fit: cover;">
+          <div>
+            <div style="font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; color: var(--royal-navy);">TUSHAR DODIA</div>
+            <div style="color: var(--saffron-dark); font-size: 0.76rem; letter-spacing: 0.5px; font-weight: 800;">BE COMP GOLD MEDALIST · CFA · FRM · DIRECTOR</div>
+          </div>
+        </div>
+        <p class="footer-brand-desc">
+          "सुंदरता सिर्फ नजरों को आकर्षित करती है, पर व्यक्तित्व दिल को छू लेती है।"<br>
+          Bridging high-stakes Wall Street financial risk with classical Ramayana servant leadership &amp; Mahabharata situational strategy.
+        </p>
+        <div class="footer-social-row">
+          <a href="https://www.youtube.com/@TusharDodia" target="_blank" class="footer-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://www.instagram.com/2minsthought" target="_blank" class="footer-social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/tushar-dodia-b4535651" target="_blank" class="footer-social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/share/17kx2XH1wQ/" target="_blank" class="footer-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/917741823212" target="_blank" class="footer-social-btn" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Mr. Tushar Dodia</a></li>
+          <li><a href="/assessment">Psychometric Diagnostic</a></li>
+          <li><a href="/services">Institutional Consulting</a></li>
+          <li><a href="/gallery">100-Photo Field Archive</a></li>
+          <li><a href="/videos">160 Video Lessons</a></li>
+          <li><a href="/contact">Direct Contact</a></li>
+          <li><a href="/admin">Executive Admin Portal</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Institutional Programs</h4>
+        <ul class="footer-links">
+          <li><a href="/services#banking">Cooperative Bank Leadership (₹35k)</a></li>
+          <li><a href="/services#teachers">Teacher Faculty Workshop (₹35k)</a></li>
+          <li><a href="/services#students">Student Personality Bootcamp (₹30k)</a></li>
+          <li><a href="/services#counselling">1-on-1 Parent Counselling (₹150/hr)</a></li>
+          <li><a href="/assessment">Junior Assessment Form (Age 4–11)</a></li>
+          <li><a href="/assessment">Senior Assessment Form (Age 12–16)</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Executive Office</h4>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Dodia Academy, Buldhana, Maharashtra 443001, India</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>+91 7741823212</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <span>tushar.dodia235@gmail.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-id-card"></i>
+          <span>Director DIN: 10265315 (MCA India)</span>
+        </div>
+        <div style="margin-top: 16px;">
+          <a href="/dossier/downloads/tushar_dodia_brochure.pdf" target="_blank" class="btn btn-secondary" style="padding: 8px 18px; font-size: 0.82rem; width: 100%;">
+            <i class="fa-solid fa-file-pdf"></i> Download 100-Page Portfolio
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 Mr. Tushar Dodia &amp; Dodia Academy · All Rights Reserved.</div>
+      <div>Director DIN: 10265315 · Dhanpragati Urban Nidhi Ltd · <a href="/admin" style="color: var(--royal-blue); font-weight: 700; text-decoration: none;"><i class="fa-solid fa-lock" style="font-size: 0.72rem;"></i> Executive Desk</a></div>
+    </div>
+  </footer>
+
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="/static/js/main.js"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

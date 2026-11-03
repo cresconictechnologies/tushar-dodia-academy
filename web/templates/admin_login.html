@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Executive Login | Dodia Academy Admin Portal{% endblock %}
+
+{% block content %}
+<section style="min-height: 75vh; display: flex; align-items: center; justify-content: center; padding: 60px 20px; background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #fffbeb 100%);">
+  <div style="max-width: 440px; width: 100%; background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 40px 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+    
+    <div style="text-align: center; margin-bottom: 28px;">
+      <img src="/static/img/tushar_dodia/hero_avatar.jpg" alt="Tushar Dodia" style="width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--royal-blue); object-fit: cover; margin-bottom: 14px;">
+      <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--royal-navy); margin-bottom: 6px;">Executive Admin Desk</h1>
+      <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+        Dodia Academy Diagnostic &amp; Psychometric Report Repository
+      </p>
+    </div>
+
+    {% if error %}
+    <div style="background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 0.86rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>{{ error }}</span>
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/admin/login">
+      <div class="form-group" style="margin-bottom: 18px;">
+        <label for="username" style="display: block; font-size: 0.86rem; font-weight: 700; color: var(--royal-navy); margin-bottom: 6px;">Administrative ID</label>
+        <input type="text" id="username" name="username" class="form-input" placeholder="e.g. admin" required autofocus>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 24px;">
+        <label for="password" style="display: block; font-size: 0.86rem; font-weight: 700; color: var(--royal-navy); margin-bottom: 6px;">Executive Passkey</label>
+        <input type="password" id="password" name="password" class="form-input" placeholder="••••••••••••" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%; padding: 13px; font-size: 0.95rem; border-radius: var(--radius-sm);">
+        <i class="fa-solid fa-lock" style="margin-right: 6px;"></i> Authenticate &amp; Access Reports
+      </button>
+
+      <div style="margin-top: 20px; text-align: center; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+        <i class="fa-solid fa-shield-halved" style="color: var(--royal-blue); margin-right: 4px;"></i>
+        Restricted to Mr. Tushar Dodia &amp; authorized assessment officers.
+      </div>
+    </form>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "INQ-2026-571",
+    "name": "Prof. Sanjay Gokhale",
+    "org": "Vidarbha Shikshan Prasarak Mandal",
+    "phone": "+91 94231 77889",
+    "email": "sanjay.gokhale@vspm.edu",
+    "program": "teachers",
+    "program_name": "Teacher Faculty Development Workshop (₹35,000)",
+    "message": "Planning annual faculty development seminar for 60 professors on motivational pedagogical methods.",
+    "created_at": "2026-11-03 18:52:23",
+    "status": "Contacted"
+  },
+  {
+    "id": "INQ-2026-802",
+    "name": "Mahesh Deshpande",
+    "org": "Vidarbha Urban Co-op Bank Ltd",
+    "phone": "+91 94221 65432",
+    "email": "mahesh@vidarbhabank.in",
+    "program": "bank",
+    "program_name": "Cooperative Bank & Branch Leadership (₹35,000)",
+    "message": "Requesting a 2-day branch leadership seminar for 35 officers.",
+    "created_at": "2026-11-03 18:44:08",
+    "status": "New Inquiry"
+  },
+  {
+    "id": "INQ-2026-652",
+    "name": "Prof. Sanjay Gokhale",
+    "org": "Vidarbha Shikshan Prasarak Mandal",
+    "phone": "+91 94231 77889",
+    "email": "sanjay.gokhale@vspm.edu",
+    "program": "teachers",
+    "program_name": "Teacher Faculty Development Workshop (₹35,000)",
+    "message": "Planning annual faculty development seminar for 60 professors on motivational pedagogical methods.",
+    "created_at": "2026-11-03 18:42:49",
+    "status": "Contacted"
+  },
+  {
+    "id": "INQ-2026-001",
+    "name": "Sunil Deshmukh",
+    "org": "Rajarshi Shahu Multistate Co-op Credit Society",
+    "phone": "+91 98220 54321",
+    "email": "hr@rajarshishahu.org",
+    "program": "bank",
+    "program_name": "Cooperative Bank & Branch Leadership (₹35,000)",
+    "message": "Interested in organizing a 2-day NPA recovery and branch manager motivation workshop for our 24 branch heads across Vidarbha region.",
+    "created_at": "2026-03-29 11:45:00",
+    "status": "Contacted"
+  },
+  {
+    "id": "INQ-2026-002",
+    "name": "Dr. Manisha Patil",
+    "org": "Khamgaon College of Engineering & Technology",
+    "phone": "+91 94228 98765",
+    "email": "principal@khamgaonengg.edu",
+    "program": "teachers",
+    "program_name": "Teacher Faculty Development Workshop (₹35,000)",
+    "message": "We would like to invite Mr. Tushar Dodia for a 1-day FDP on active student engagement, flipped classrooms, and addressing post-exam anxiety.",
+    "created_at": "2026-04-03 14:20:00",
+    "status": "New Inquiry"
+  },
+  {
+    "id": "INQ-2026-003",
+    "name": "Rajendra Shinde",
+    "org": "Parent (Student: Aarav Shinde, Class IX)",
+    "phone": "+91 98500 12345",
+    "email": "rajendra.shinde@example.com",
+    "program": "counselling",
+    "program_name": "1-on-1 Student & Parent Counselling (₹150/hr)",
+    "message": "My son is losing focus due to gaming and smartphone usage. We would like to schedule a private psychometric diagnostic debrief with Tushar Sir.",
+    "created_at": "2026-04-12 16:30:00",
+    "status": "Scheduled"
+  }
+]

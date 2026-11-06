@@ -411,6 +411,15 @@ async def api_submit_assessment(data: AssessmentSubmission):
         "user_answers": data.user_answers or {}
     }
     
+    # Generate the authentic 8-page Diagnostic PDF immediately
+    try:
+        eval_report = build_evaluation_report_from_record(new_record)
+        await render_report_to_pdf(eval_report, output_filename=custom_pdf_filename)
+        new_record["pdf_generated"] = True
+    except Exception as e:
+        print(f"Warning: PDF generation encountered: {e}")
+        new_record["pdf_generated"] = False
+    
     submissions.insert(0, new_record)
     save_submissions(submissions)
     
@@ -418,6 +427,7 @@ async def api_submit_assessment(data: AssessmentSubmission):
         "success": True,
         "report_id": report_id,
         "student_name": data.student_name,
+        "pdf_url": f"/api/reports/{report_id}/pdf",
         "scores": {
             "academic": data.academic_score,
             "consistency": data.consistency_score,
@@ -426,8 +436,36 @@ async def api_submit_assessment(data: AssessmentSubmission):
             "gap": gap,
             "risk": risk
         },
-        "message": "Diagnostic report generated and filed in the Executive Admin Repository for Mr. Tushar Dodia."
+        "message": "Official 8-Page Diagnostic Dossier generated successfully."
     }
+
+@app.get("/api/reports/{report_id}/pdf")
+async def api_download_student_report_pdf(report_id: str):
+    """
+    Public direct download and in-browser viewing of the official 8-page
+    psychometric diagnostic dossier PDF for the candidate and parent.
+    Generates dynamically on the fly if not already cached on disk.
+    """
+    submissions = load_submissions()
+    record = next((s for s in submissions if s.get("id") == report_id), None)
+    if not record:
+        raise HTTPException(status_code=404, detail="Diagnostic report ID not found.")
+    
+    clean_name = record.get("student_name", "Student").replace(" ", "_")
+    custom_pdf_filename = record.get("pdf_filename") or f"{clean_name}_{report_id}.pdf"
+    output_pdf = DOSSIER_DIR / "downloads" / custom_pdf_filename
+    
+    if not output_pdf.exists():
+        eval_report = build_evaluation_report_from_record(record)
+        await render_report_to_pdf(eval_report, output_filename=custom_pdf_filename)
+        record["pdf_filename"] = custom_pdf_filename
+        save_submissions(submissions)
+        
+    return FileResponse(
+        path=str(output_pdf),
+        media_type="application/pdf",
+        filename=f"{clean_name}_Official_Psychometric_Report_{report_id}.pdf"
+    )
 
 class EvaluationRequest(BaseModel):
     tier: str = "senior"

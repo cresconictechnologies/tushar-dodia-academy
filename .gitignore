@@ -12,6 +12,8 @@ Thumbs.db
 
 # Temporary extraction & scratch artifacts
 *.pdf
+!dossier/downloads/*.pdf
+!dossier/downloads/tushar_dodia_brochure.pdftushar_dodia_brochure.pdf
 tushar_website*
 website_extracted*
 website_data.json
@@ -34,6 +36,7 @@ check_pdf_images.py
 dossier/raw_slides/
 dossier/brochure_assets/
 dossier/web_assets/
-dossier/downloads/
+dossier/downloads/*.pdf
+!dossier/downloads/tushar_dodia_brochure.pdf
 
 

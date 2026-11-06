@@ -125,7 +125,13 @@ def run_suite(base_url: str):
     test_assert("Senior Report ID generated (DA-2026-SR-...)", bool(sr_report_id and sr_report_id.startswith("DA-2026-SR-")), f"Got {sr_report_id}")
     test_assert("Senior scores contains execution gap", "gap" in sr_json.get("scores", {}))
     test_assert("Senior scores contains risk tier", "risk" in sr_json.get("scores", {}))
-    test_assert("Response message confirms admin vault filing", "Executive Admin Repository" in sr_json.get("message", ""))
+    test_assert("Senior submission returns pdf_url", "pdf_url" in sr_json)
+    
+    # Test Public Report Download
+    public_pdf_res = requests.get(f"{base_url}{sr_json['pdf_url']}", timeout=60)
+    test_assert("Public report PDF download returns 200", public_pdf_res.status_code == 200)
+    test_assert("Public report starts with %PDF", public_pdf_res.content[:4] == b"%PDF")
+    test_assert("Public report size > 500KB", len(public_pdf_res.content) > 500000)
 
     # Junior Assessment
     jr_payload = {

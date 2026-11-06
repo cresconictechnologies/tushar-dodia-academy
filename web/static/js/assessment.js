@@ -457,19 +457,34 @@ function showResults(serverData, payload) {
         ${observationText}
       </div>
 
-      <!-- Confidentiality Policy Notice (Non-Download) -->
-      <div style="background: #f1f5f9; border-radius: 6px; padding: 14px 18px; font-size: 0.84rem; color: #334155; line-height: 1.55;">
-        <div style="font-weight: 800; color: var(--royal-navy); margin-bottom: 4px;">
-          <i class="fa-solid fa-shield-halved" style="color: var(--royal-blue); margin-right: 4px;"></i>
-          Institutional Governance &amp; Confidentiality Notice
+      <!-- Direct Report Download & In-Browser View Card -->
+      <div style="background: #ffffff; border: 2px solid var(--royal-blue); border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(37,99,235,0.12); text-align: center;">
+        <div style="font-weight: 800; color: var(--royal-navy); font-size: 1.15rem; margin-bottom: 6px;">
+          <i class="fa-solid fa-file-circle-check" style="color: #10b981; margin-right: 6px;"></i>
+          Your Official 8-Page Psychometric Dossier is Ready!
         </div>
-        As per Dodia Academy diagnostic standards, complete 8-page developmental reports are maintained directly in the <strong>Executive Admin Repository</strong>. Reports are explained and delivered exclusively by Mr. Tushar Dodia during private 1-on-1 parent debrief sessions to ensure constructive psychological guidance.
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin: 0 0 16px; line-height: 1.5;">
+          Includes full competency breakdown, Starter vs. Finisher execution funnel, habit vulnerability audit, and personalized recommendations.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="/api/reports/${reportId}/pdf" target="_blank" download="${studentName}_Psychometric_Report_${reportId}.pdf" class="btn btn-primary" style="padding: 12px 24px; font-size: 0.95rem; background: var(--royal-blue); color: #ffffff; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 800; border-radius: var(--radius-md); box-shadow: 0 4px 12px rgba(37,99,235,0.3);">
+            <i class="fa-solid fa-download"></i> Download 8-Page Report (PDF)
+          </a>
+          <a href="/api/reports/${reportId}/pdf" target="_blank" class="btn btn-secondary" style="padding: 12px 20px; font-size: 0.92rem; background: #ffffff; color: var(--royal-navy); border: 2px solid var(--royal-navy); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 700;">
+            <i class="fa-solid fa-eye"></i> View in Browser
+          </a>
+        </div>
+      </div>
+
+      <div style="background: #f8fafc; border-radius: 6px; padding: 14px 18px; font-size: 0.82rem; color: #475569; line-height: 1.5; border: 1px solid var(--border-light);">
+        <i class="fa-solid fa-shield-halved" style="color: var(--royal-blue); margin-right: 4px;"></i>
+        A permanent copy of this diagnostic dossier has been archived under ID <strong>${reportId}</strong> in Mr. Tushar Dodia's Executive Admin Repository for reference during clinical counselling.
       </div>
     </div>
 
     <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-      <a href="https://wa.me/917741823212?text=Hello%20Tushar%20Sir%2C%20I%20have%20completed%20the%20Psychometric%20Assessment%20for%20my%20child%20${encodeURIComponent(studentName)}%20(Report%20ID%3A%20${reportId}).%20Kindly%20schedule%20our%201-on-1%20debrief%20session." target="_blank" class="btn btn-primary" style="padding: 12px 24px;">
-        <i class="fa-brands fa-whatsapp"></i> WhatsApp Tushar Sir with Report ID (${reportId})
+      <a href="https://wa.me/917741823212?text=Hello%20Tushar%20Sir%2C%20I%20have%20completed%20the%20Psychometric%20Assessment%20for%20my%20child%20${encodeURIComponent(studentName)}%20(Report%20ID%3A%20${reportId}).%20I%20have%20downloaded%20our%208-page%20report%20and%20would%20like%20to%20schedule%20our%201-on-1%20debrief%20session." target="_blank" class="btn btn-primary" style="background:#15803d; border-color:#15803d; padding: 12px 24px;">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp Tushar Sir for 1-on-1 Debrief
       </a>
       <button class="btn btn-secondary" style="background:#e2e8f0; color:#334155; border:none; padding: 12px 20px;" onclick="location.reload()">
         <i class="fa-solid fa-arrow-rotate-left"></i> Retake Assessment
@@ -478,4 +493,27 @@ function showResults(serverData, payload) {
   `;
 }
 
-document.addEventListener('DOMContentLoaded', initAssessment);
+// Global helper for CTA buttons to activate interactive diagnostic immediately
+window.startAssessment = function(tier) {
+  if (tier && (tier === "senior" || tier === "junior")) {
+    currentTier = tier;
+    currentQIndex = 0;
+    userAnswers = {};
+    updateTierButtons();
+    renderQuestion();
+  }
+  const el = document.getElementById('quizSimulator');
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Check URL query params for auto-tier selection (e.g. /assessment?tier=senior)
+  const urlParams = new URLSearchParams(window.location.search);
+  const tierParam = urlParams.get('tier');
+  if (tierParam && (tierParam === 'senior' || tierParam === 'junior')) {
+    currentTier = tierParam;
+  }
+  initAssessment();
+});

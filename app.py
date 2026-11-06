@@ -103,6 +103,30 @@ CACHED_PHOTOS = load_photos()
 CACHED_VIDEOS = load_videos()
 
 # ==============================================================================
+# Health Check Endpoint
+# ==============================================================================
+
+@app.get("/api/health")
+@app.get("/healthz")
+async def health_check():
+    """
+    Dedicated health check endpoint reporting repository, cache, and system status.
+    """
+    return {
+        "status": "healthy",
+        "service": "Tushar Dodia Academy Production Portal",
+        "timestamp": datetime.now().isoformat(),
+        "repository": {
+            "submissions_count": len(load_submissions()),
+            "inquiries_count": len(load_inquiries())
+        },
+        "media_cache": {
+            "photos_count": len(CACHED_PHOTOS),
+            "videos_count": len(CACHED_VIDEOS)
+        }
+    }
+
+# ==============================================================================
 # HTML Page Routes (Public)
 # ==============================================================================
 

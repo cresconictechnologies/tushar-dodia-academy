@@ -457,23 +457,29 @@ function showResults(serverData, payload) {
         ${observationText}
       </div>
 
-      <!-- Direct Report Download & In-Browser View Card -->
-      <div style="background: #ffffff; border: 2px solid var(--royal-blue); border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(37,99,235,0.12); text-align: center;">
-        <div style="font-weight: 800; color: var(--royal-navy); font-size: 1.15rem; margin-bottom: 6px;">
-          <i class="fa-solid fa-file-circle-check" style="color: #10b981; margin-right: 6px;"></i>
-          Your Official 8-Page Psychometric Dossier is Ready!
+      <!-- Executive Admin Delivery Governance Notice -->
+      <div style="background: #ffffff; border: 2px solid var(--royal-blue); border-radius: var(--radius-md); padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(37,99,235,0.12); text-align: center;">
+        <div style="font-size: 2.2rem; color: #10b981; margin-bottom: 8px;">
+          <i class="fa-solid fa-circle-check"></i>
         </div>
-        <p style="font-size: 0.88rem; color: var(--text-secondary); margin: 0 0 16px; line-height: 1.5;">
-          Includes full competency breakdown, Starter vs. Finisher execution funnel, habit vulnerability audit, and personalized recommendations.
+        <div style="font-weight: 800; color: var(--royal-navy); font-size: 1.25rem; margin-bottom: 6px;">
+          Assessment Evaluated &amp; 8-Page Dossier Filed
+        </div>
+        <div style="display: inline-block; background: #eff6ff; color: var(--royal-blue); border: 1px solid #bfdbfe; font-size: 0.84rem; font-weight: 800; padding: 4px 14px; border-radius: var(--radius-full); margin-bottom: 14px;">
+          Official Tracking Reference: <strong>${reportId}</strong>
+        </div>
+        <p style="font-size: 0.92rem; color: #334155; line-height: 1.6; max-width: 540px; margin: 0 auto 16px;">
+          Your responses have been processed and your comprehensive <strong>8-Page Diagnostic Dossier</strong> has been compiled and secured in <strong>Mr. Tushar Dodia's Executive Admin Desk</strong>.
         </p>
-        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-          <a href="/api/reports/${reportId}/pdf" target="_blank" download="${studentName}_Psychometric_Report_${reportId}.pdf" class="btn btn-primary" style="padding: 12px 24px; font-size: 0.95rem; background: var(--royal-blue); color: #ffffff; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 800; border-radius: var(--radius-md); box-shadow: 0 4px 12px rgba(37,99,235,0.3);">
-            <i class="fa-solid fa-download"></i> Download 8-Page Report (PDF)
-          </a>
-          <a href="/api/reports/${reportId}/pdf" target="_blank" class="btn btn-secondary" style="padding: 12px 20px; font-size: 0.92rem; background: #ffffff; color: var(--royal-navy); border: 2px solid var(--royal-navy); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 700;">
-            <i class="fa-solid fa-eye"></i> View in Browser
-          </a>
+        <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 6px; padding: 14px 18px; text-align: left; max-width: 540px; margin: 0 auto 18px; font-size: 0.86rem; color: #475569; line-height: 1.6;">
+          <div style="font-weight: 800; color: var(--royal-navy); margin-bottom: 4px;">
+            <i class="fa-solid fa-paper-plane" style="color: var(--royal-blue); margin-right: 6px;"></i> Direct Report Delivery via WhatsApp &amp; Email
+          </div>
+          To ensure constructive clinical interpretation without subjective stress, <strong>Mr. Tushar Dodia personally shares the complete 8-page developmental report directly with parents via WhatsApp and Email</strong>, accompanied by a 1-on-1 diagnostic counselling debrief.
         </div>
+        <a href="https://wa.me/917741823212?text=Hello%20Tushar%20Sir%2C%20I%20have%20submitted%20the%20Psychometric%20Assessment%20for%20my%20child%20${encodeURIComponent(studentName)}%20(Report%20ID%3A%20${reportId}).%20Kindly%20share%20our%20official%208-page%20report%20via%20WhatsApp%20or%20Email%20and%20schedule%20our%201-on-1%20debrief%20session." target="_blank" class="btn btn-primary" style="background: #15803d; border-color: #15803d; padding: 12px 26px; font-weight: 800; font-size: 0.95rem;">
+          <i class="fa-brands fa-whatsapp"></i> Request Report Delivery on WhatsApp
+        </a>
       </div>
 
       <div style="background: #f8fafc; border-radius: 6px; padding: 14px 18px; font-size: 0.82rem; color: #475569; line-height: 1.5; border: 1px solid var(--border-light);">
@@ -483,8 +489,8 @@ function showResults(serverData, payload) {
     </div>
 
     <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-      <a href="https://wa.me/917741823212?text=Hello%20Tushar%20Sir%2C%20I%20have%20completed%20the%20Psychometric%20Assessment%20for%20my%20child%20${encodeURIComponent(studentName)}%20(Report%20ID%3A%20${reportId}).%20I%20have%20downloaded%20our%208-page%20report%20and%20would%20like%20to%20schedule%20our%201-on-1%20debrief%20session." target="_blank" class="btn btn-primary" style="background:#15803d; border-color:#15803d; padding: 12px 24px;">
-        <i class="fa-brands fa-whatsapp"></i> WhatsApp Tushar Sir for 1-on-1 Debrief
+      <a href="https://wa.me/917741823212?text=Hello%20Tushar%20Sir%2C%20I%20have%20submitted%20the%20Psychometric%20Assessment%20for%20my%20child%20${encodeURIComponent(studentName)}%20(Report%20ID%3A%20${reportId}).%20Kindly%20share%20our%20official%208-page%20report%20via%20WhatsApp%20or%20Email%20and%20schedule%20our%201-on-1%20debrief%20session." target="_blank" class="btn btn-primary" style="background:#15803d; border-color:#15803d; padding: 12px 24px;">
+        <i class="fa-brands fa-whatsapp"></i> Connect with Tushar Sir
       </a>
       <button class="btn btn-secondary" style="background:#e2e8f0; color:#334155; border:none; padding: 12px 20px;" onclick="location.reload()">
         <i class="fa-solid fa-arrow-rotate-left"></i> Retake Assessment

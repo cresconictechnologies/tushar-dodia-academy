@@ -3,8 +3,8 @@
 {% block title %}Executive Diagnostic Command Center | Dodia Academy Admin{% endblock %}
 
 {% block content %}
-<!-- Admin Dashboard Banner -->
-<section style="background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); color: #ffffff; padding: 40px 0; border-bottom: 2px solid var(--saffron-dark);">
+<!-- Admin Dashboard Banner (Padded to clear 80px fixed navbar) -->
+<section style="background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); color: #ffffff; padding: 115px 0 36px; border-bottom: 2px solid var(--saffron-dark);">
   <div class="container" style="max-width: 1200px;">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
       
@@ -147,8 +147,8 @@
           </span>
         </div>
 
-        <div style="overflow-x: auto;">
-          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
+        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+          <table style="width: 100%; min-width: 1060px; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
             <thead>
               <tr style="background: #f8fafc; border-bottom: 1px solid var(--border-light); color: var(--royal-navy); font-size: 0.78rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">
                 <th style="padding: 14px 20px;">Report ID</th>
@@ -299,8 +299,8 @@
           </span>
         </div>
 
-        <div style="overflow-x: auto;">
-          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
+        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+          <table style="width: 100%; min-width: 1060px; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
             <thead>
               <tr style="background: #f8fafc; border-bottom: 1px solid var(--border-light); color: var(--royal-navy); font-size: 0.78rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">
                 <th style="padding: 14px 20px;">Inquiry ID</th>
@@ -315,7 +315,7 @@
             <tbody id="inquiriesTableBody">
               {% if not inquiries %}
               <tr id="emptyInquiriesRow">
-                <td colspan="6" style="padding: 48px 20px; text-align: center; color: var(--text-secondary);">
+                <td colspan="7" style="padding: 48px 20px; text-align: center; color: var(--text-secondary);">
                   <div style="font-size: 2.2rem; color: #94a3b8; margin-bottom: 12px;"><i class="fa-solid fa-inbox"></i></div>
                   <div style="font-weight: 800; font-size: 1.05rem; color: var(--royal-navy); margin-bottom: 6px;">No Inquiries Received Yet</div>
                   <div style="font-size: 0.88rem; max-width: 480px; margin: 0 auto; line-height: 1.5;">Messages submitted via the executive contact form will be logged here with instant WhatsApp outreach links.</div>
@@ -394,8 +394,8 @@
   </div>
 </section>
 
-<!-- Full Diagnostic Details Modal (Admin Only) -->
-<div id="diagnosticDetailModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); z-index: 1000; overflow-y: auto; padding: 40px 16px;">
+<!-- Full Diagnostic Details Modal (Admin Only - High z-index & top clearance to prevent navbar collision) -->
+<div id="diagnosticDetailModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(6px); z-index: 10000; overflow-y: auto; padding: 95px 16px 40px;">
   <div style="max-width: 850px; margin: 0 auto; background: #ffffff; border-radius: var(--radius-lg); box-shadow: 0 20px 40px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid var(--border-light);">
     
     <!-- Modal Header -->

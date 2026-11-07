@@ -3,16 +3,36 @@
 {% block title %}Executive Login | Dodia Academy Admin Portal{% endblock %}
 
 {% block content %}
-<section style="min-height: 75vh; display: flex; align-items: center; justify-content: center; padding: 60px 20px; background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #fffbeb 100%);">
-  <div style="max-width: 440px; width: 100%; background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 40px 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+<section style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 125px 20px 80px; background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #fffbeb 100%);">
+  <div style="max-width: 460px; width: 100%; background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 40px 32px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
     
-    <div style="text-align: center; margin-bottom: 28px;">
-      <img src="/static/img/tushar_dodia/hero_avatar.jpg" alt="Tushar Dodia" style="width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--royal-blue); object-fit: cover; margin-bottom: 14px;">
+    <div style="text-align: center; margin-bottom: 24px;">
+      <img src="/static/img/tushar_dodia/hero_avatar.jpg" alt="Tushar Dodia" style="width: 76px; height: 76px; border-radius: 50%; border: 3px solid var(--royal-blue); object-fit: cover; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(30,58,138,0.15);">
       <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--royal-navy); margin-bottom: 6px;">Executive Admin Desk</h1>
       <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
-        Dodia Academy Diagnostic &amp; Psychometric Report Repository
+        Dodia Academy Confidential Diagnostic &amp; Psychometric Dossiers
       </p>
     </div>
+
+    {% if already_authenticated %}
+    <div style="background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 14px 16px; border-radius: var(--radius-sm); margin-bottom: 22px;">
+      <div style="font-weight: 800; display: flex; align-items: center; gap: 8px; font-size: 0.92rem;">
+        <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+        Active Executive Session Active
+      </div>
+      <p style="font-size: 0.84rem; margin: 6px 0 14px; color: #047857;">
+        You are currently authenticated as <strong>Mr. Tushar Dodia</strong>.
+      </p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="/admin" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem; text-decoration: none; flex: 1; text-align: center;">
+          <i class="fa-solid fa-gauge-high"></i> Go to Admin Desk
+        </a>
+        <a href="/admin/logout" class="btn btn-secondary" style="background: #ffffff; color: #dc2626; border: 1px solid #fecaca; padding: 8px 16px; font-size: 0.85rem; text-decoration: none;">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+        </a>
+      </div>
+    </div>
+    {% endif %}
 
     {% if error %}
     <div style="background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 0.86rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
@@ -24,12 +44,12 @@
     <form method="POST" action="/admin/login">
       <div class="form-group" style="margin-bottom: 18px;">
         <label for="username" style="display: block; font-size: 0.86rem; font-weight: 700; color: var(--royal-navy); margin-bottom: 6px;">Administrative ID</label>
-        <input type="text" id="username" name="username" class="form-input" placeholder="e.g. admin" required autofocus>
+        <input type="text" id="username" name="username" class="form-input" placeholder="e.g. admin" required autofocus style="background: #f8fafc;">
       </div>
 
       <div class="form-group" style="margin-bottom: 24px;">
         <label for="password" style="display: block; font-size: 0.86rem; font-weight: 700; color: var(--royal-navy); margin-bottom: 6px;">Executive Passkey</label>
-        <input type="password" id="password" name="password" class="form-input" placeholder="••••••••••••" required>
+        <input type="password" id="password" name="password" class="form-input" placeholder="••••••••••••" required style="background: #f8fafc;">
       </div>
 
       <button type="submit" class="btn btn-primary" style="width: 100%; padding: 13px; font-size: 0.95rem; border-radius: var(--radius-sm);">

@@ -25,6 +25,22 @@ def run_suite(base_url: str):
             print(f"  [FAIL] {desc} - {extra}")
 
     # -------------------------------------------------------------
+    # 0. DEDICATED HEALTH CHECK & OWASP SECURITY HEADERS
+    # -------------------------------------------------------------
+    print("\n--- 0. Testing Dedicated Health Check & OWASP Security Headers ---")
+    health_res = requests.get(f"{base_url}/api/health", timeout=20)
+    test_assert("GET /api/health returns 200", health_res.status_code == 200)
+    health_json = health_res.json()
+    test_assert("Health payload has 'status': 'healthy'", health_json.get("status") == "healthy")
+    test_assert("Health payload reports repository status", "repository" in health_json or "database" in health_json)
+    
+    # Verify OWASP Security Headers
+    test_assert("X-Content-Type-Options: nosniff present", health_res.headers.get("X-Content-Type-Options") == "nosniff")
+    test_assert("X-Frame-Options: SAMEORIGIN present", health_res.headers.get("X-Frame-Options") == "SAMEORIGIN")
+    test_assert("Content-Security-Policy header present", "Content-Security-Policy" in health_res.headers)
+    test_assert("Referrer-Policy header present", "Referrer-Policy" in health_res.headers)
+
+    # -------------------------------------------------------------
     # 1. PUBLIC WEB PAGES
     # -------------------------------------------------------------
     print("--- 1. Testing Public Web Pages ---")

@@ -24,6 +24,31 @@ if str(BASE_DIR) not in sys.path:
 
 from engine.scorer_senior import SeniorScoringEngine
 from engine.scorer_junior import JuniorScoringEngine
+from engine.database import (
+    get_all_submissions,
+    get_submission_by_id,
+    save_new_submission,
+    update_submission,
+    delete_submission,
+    get_all_inquiries,
+    get_inquiry_by_id,
+    save_new_inquiry,
+    update_inquiry,
+    delete_inquiry,
+    sync_json_backups,
+    db_insert_or_replace_submission_raw,
+    db_insert_or_replace_inquiry_raw,
+    get_db_connection
+)
+from engine.security import (
+    SecurityHeadersMiddleware,
+    ADMIN_COOKIE_NAME,
+    is_request_authenticated,
+    create_authenticated_session,
+    verify_admin_credentials,
+    revoke_session,
+    is_ip_locked
+)
 from generator.pdf_service import (
     render_report_to_pdf, get_benchmark_shardul_report,
     build_evaluation_report_from_record
@@ -32,8 +57,11 @@ from generator.pdf_service import (
 app = FastAPI(
     title="Tushar Dodia | Dodia Academy",
     description="Modern Strategy. Ancient Wisdom. Corporate Leadership & Student Psychometric Evaluation.",
-    version="2.2.0"
+    version="2.3.0"
 )
+
+# Apply OWASP Top 10 Defensive Security Headers
+app.add_middleware(SecurityHeadersMiddleware)
 
 # Mount Static Directories
 STATIC_DIR = BASE_DIR / "web" / "static"
@@ -49,14 +77,10 @@ templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 # Cached Data Stores
 PHOTOS_CSV = DOSSIER_DIR / "PHOTO_INDEX.csv"
 VIDEOS_JSON = DOSSIER_DIR / "youtube_videos.json"
-SUBMISSIONS_FILE = DOSSIER_DIR / "submissions.json"
-INQUIRIES_FILE = DOSSIER_DIR / "inquiries.json"
-
-ADMIN_COOKIE_NAME = "dodia_admin_auth"
-ADMIN_COOKIE_VAL = "authenticated_tushar_executive"
 
 def is_admin_authenticated(request: Request) -> bool:
-    return request.cookies.get(ADMIN_COOKIE_NAME) == ADMIN_COOKIE_VAL
+    """Verifies cryptographic session signature and database active session."""
+    return is_request_authenticated(request)
 
 def load_photos():
     photos = []
@@ -74,30 +98,36 @@ def load_videos():
     return []
 
 def load_submissions() -> List[Dict[str, Any]]:
-    if SUBMISSIONS_FILE.exists():
-        try:
-            with open(SUBMISSIONS_FILE, mode="r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return []
-    return []
+    """Loads all student diagnostic assessments directly from SQLite database."""
+    return get_all_submissions()
 
 def save_submissions(submissions: List[Dict[str, Any]]):
-    with open(SUBMISSIONS_FILE, mode="w", encoding="utf-8") as f:
-        json.dump(submissions, f, indent=2, ensure_ascii=False)
+    """Synchronizes submissions into SQLite database and updates JSON mirror."""
+    conn = get_db_connection()
+    try:
+        cursor = conn.cursor()
+        for s in submissions:
+            db_insert_or_replace_submission_raw(cursor, s)
+        conn.commit()
+        sync_json_backups(conn)
+    finally:
+        conn.close()
 
 def load_inquiries() -> List[Dict[str, Any]]:
-    if INQUIRIES_FILE.exists():
-        try:
-            with open(INQUIRIES_FILE, mode="r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return []
-    return []
+    """Loads all client inquiries directly from SQLite database."""
+    return get_all_inquiries()
 
 def save_inquiries(inquiries: List[Dict[str, Any]]):
-    with open(INQUIRIES_FILE, mode="w", encoding="utf-8") as f:
-        json.dump(inquiries, f, indent=2, ensure_ascii=False)
+    """Synchronizes inquiries into SQLite database and updates JSON mirror."""
+    conn = get_db_connection()
+    try:
+        cursor = conn.cursor()
+        for inq in inquiries:
+            db_insert_or_replace_inquiry_raw(cursor, inq)
+        conn.commit()
+        sync_json_backups(conn)
+    finally:
+        conn.close()
 
 CACHED_PHOTOS = load_photos()
 CACHED_VIDEOS = load_videos()
@@ -217,42 +247,81 @@ async def contact_page(request: Request):
 
 @app.get("/admin/login")
 async def admin_login_page(request: Request):
-    if is_admin_authenticated(request):
-        return RedirectResponse(url="/admin", status_code=302)
+    """
+    Executive Login Interface.
+    Never silently auto-bypasses without user clarity; displays active session status if already logged in.
+    """
+    client_ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "127.0.0.1").split(",")[0].strip()
+    locked = is_ip_locked(client_ip)
+    already_auth = is_admin_authenticated(request)
     return templates.TemplateResponse(
         request=request,
         name="admin_login.html",
-        context={"active_page": "admin", "error": None}
+        context={
+            "active_page": "admin",
+            "error": "Security lock active: Too many failed login attempts. Please wait 15 minutes." if locked else None,
+            "already_authenticated": already_auth,
+            "is_admin": already_auth
+        }
     )
 
 @app.post("/admin/login")
 async def admin_login_submit(request: Request):
+    """
+    Authenticates administrative user with IP brute-force protection and cryptographic session signing.
+    """
+    client_ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "127.0.0.1").split(",")[0].strip()
+
+    if is_ip_locked(client_ip):
+        return templates.TemplateResponse(
+            request=request,
+            name="admin_login.html",
+            context={
+                "active_page": "admin",
+                "error": "IP temporarily locked due to repeated failed attempts. Please retry after 15 minutes.",
+                "already_authenticated": False,
+                "is_admin": False
+            },
+            status_code=429
+        )
+
     form = await request.form()
     username = form.get("username", "").strip()
     password = form.get("password", "").strip()
-    
-    # Secure administrative credentials
-    if username == "admin" and password == "tushar@dodia2026":
+
+    # Timing-safe authentication & session generation
+    if verify_admin_credentials(username, password, client_ip):
+        token = create_authenticated_session(username, client_ip)
         response = RedirectResponse(url="/admin", status_code=302)
+        is_secure = request.headers.get("x-forwarded-proto", request.url.scheme) == "https"
         response.set_cookie(
             key=ADMIN_COOKIE_NAME,
-            value=ADMIN_COOKIE_VAL,
+            value=token,
             httponly=True,
-            max_age=86400 * 7,
-            samesite="lax"
+            max_age=14400,  # 4-hour active session
+            samesite="lax",
+            path="/",
+            secure=is_secure
         )
         return response
-    
+
     return templates.TemplateResponse(
         request=request,
         name="admin_login.html",
-        context={"active_page": "admin", "error": "Invalid username or password. Please verify credentials."}
+        context={
+            "active_page": "admin",
+            "error": "Invalid Administrative ID or Executive Passkey. Access Denied.",
+            "already_authenticated": False,
+            "is_admin": False
+        },
+        status_code=401
     )
 
 @app.get("/admin/logout")
-async def admin_logout():
+async def admin_logout(request: Request):
+    """Destroys active admin session token from SQLite and clears auth cookie."""
     response = RedirectResponse(url="/admin/login", status_code=302)
-    response.delete_cookie(ADMIN_COOKIE_NAME)
+    revoke_session(request, response)
     return response
 
 @app.get("/admin")
@@ -312,8 +381,7 @@ class ContactInquiry(BaseModel):
 
 @app.post("/api/contact")
 async def api_submit_contact(data: ContactInquiry):
-    """Saves incoming institutional and individual inquiries to Admin desk."""
-    inquiries = load_inquiries()
+    """Saves incoming institutional and individual inquiries to persistent database and Admin desk."""
     inq_id = f"INQ-2026-{random.randint(100, 999)}"
     
     program_map = {
@@ -339,8 +407,7 @@ async def api_submit_contact(data: ContactInquiry):
         "status": "New Inquiry"
     }
     
-    inquiries.insert(0, new_inq)
-    save_inquiries(inquiries)
+    save_new_inquiry(new_inq)
     
     return {
         "success": True,
@@ -366,11 +433,9 @@ class AssessmentSubmission(BaseModel):
 async def api_submit_assessment(data: AssessmentSubmission):
     """
     Submits student assessment responses.
-    The report record is generated and stored in the Admin Repository.
+    The report record is generated and stored in the persistent SQLite database.
     Regular users cannot download the full PDF report directly.
     """
-    submissions = load_submissions()
-    
     gap = max(data.idea_score - data.completion_score, 0)
     risk = "HIGH RISK" if data.consistency_score < 55 else ("MODERATE" if data.consistency_score < 75 else "STABLE EXECUTION")
     
@@ -444,8 +509,7 @@ async def api_submit_assessment(data: AssessmentSubmission):
         print(f"Warning: PDF generation encountered: {e}")
         new_record["pdf_generated"] = False
     
-    submissions.insert(0, new_record)
-    save_submissions(submissions)
+    save_new_submission(new_record)
     
     return {
         "success": True,
@@ -470,8 +534,7 @@ async def api_download_student_report_pdf(report_id: str):
     psychometric diagnostic dossier PDF for the candidate and parent.
     Generates dynamically on the fly if not already cached on disk.
     """
-    submissions = load_submissions()
-    record = next((s for s in submissions if s.get("id") == report_id), None)
+    record = get_submission_by_id(report_id)
     if not record:
         raise HTTPException(status_code=404, detail="Diagnostic report ID not found.")
     
@@ -569,8 +632,7 @@ async def api_admin_get_report(report_id: str, request: Request):
     if not is_admin_authenticated(request):
         raise HTTPException(status_code=403, detail="Unauthorized")
     
-    submissions = load_submissions()
-    record = next((s for s in submissions if s.get("id") == report_id), None)
+    record = get_submission_by_id(report_id)
     if not record:
         raise HTTPException(status_code=404, detail="Report not found")
     return record
@@ -584,68 +646,52 @@ async def api_admin_update_status(report_id: str, request: Request):
     new_status = data.get("status")
     new_notes = data.get("notes")
     
-    submissions = load_submissions()
-    record = next((s for s in submissions if s.get("id") == report_id), None)
-    if not record:
+    success = update_submission(report_id, status=new_status, notes=new_notes)
+    if not success:
         raise HTTPException(status_code=404, detail="Report not found")
     
-    if new_status:
-        record["status"] = new_status
-    if new_notes is not None:
-        record["notes"] = new_notes
-        
-    save_submissions(submissions)
+    record = get_submission_by_id(report_id)
     return {"success": True, "record": record}
 
 @app.delete("/api/admin/reports/{report_id}")
 async def api_admin_delete_report(report_id: str, request: Request):
-    """Deletes an assessment record from repository."""
+    """Deletes an assessment record from persistent SQLite database."""
     if not is_admin_authenticated(request):
         raise HTTPException(status_code=403, detail="Unauthorized")
     
-    submissions = load_submissions()
-    initial_len = len(submissions)
-    submissions = [s for s in submissions if s.get("id") != report_id]
-    if len(submissions) == initial_len:
+    success = delete_submission(report_id)
+    if not success:
         raise HTTPException(status_code=404, detail="Report ID not found")
     
-    save_submissions(submissions)
-    return {"success": True, "message": f"Report {report_id} deleted."}
+    return {"success": True, "message": f"Report {report_id} permanently deleted from database."}
 
 @app.post("/api/admin/inquiries/{inquiry_id}/status")
 async def api_admin_update_inquiry_status(inquiry_id: str, request: Request):
-    """Updates status for an institutional or individual inquiry."""
+    """Updates status for an institutional or individual inquiry in database."""
     if not is_admin_authenticated(request):
         raise HTTPException(status_code=403, detail="Unauthorized")
     
     data = await request.json()
     new_status = data.get("status")
     
-    inquiries = load_inquiries()
-    record = next((i for i in inquiries if i.get("id") == inquiry_id), None)
-    if not record:
+    success = update_inquiry(inquiry_id, status=new_status)
+    if not success:
         raise HTTPException(status_code=404, detail="Inquiry not found")
     
-    if new_status:
-        record["status"] = new_status
-        
-    save_inquiries(inquiries)
+    record = get_inquiry_by_id(inquiry_id)
     return {"success": True, "record": record}
 
 @app.delete("/api/admin/inquiries/{inquiry_id}")
 async def api_admin_delete_inquiry(inquiry_id: str, request: Request):
-    """Deletes an inquiry record from repository."""
+    """Deletes an inquiry record from persistent database."""
     if not is_admin_authenticated(request):
         raise HTTPException(status_code=403, detail="Unauthorized")
     
-    inquiries = load_inquiries()
-    initial_len = len(inquiries)
-    inquiries = [i for i in inquiries if i.get("id") != inquiry_id]
-    if len(inquiries) == initial_len:
+    success = delete_inquiry(inquiry_id)
+    if not success:
         raise HTTPException(status_code=404, detail="Inquiry ID not found")
     
-    save_inquiries(inquiries)
-    return {"success": True, "message": f"Inquiry {inquiry_id} deleted."}
+    return {"success": True, "message": f"Inquiry {inquiry_id} permanently deleted from database."}
 
 @app.get("/api/admin/reports/{report_id}/pdf")
 async def api_admin_download_pdf(report_id: str, request: Request):
@@ -660,8 +706,7 @@ async def api_admin_download_pdf(report_id: str, request: Request):
             detail="Forbidden: Clinical psychometric reports can only be downloaded from the Dodia Academy Executive Admin Panel."
         )
     
-    submissions = load_submissions()
-    record = next((s for s in submissions if s.get("id") == report_id), None)
+    record = get_submission_by_id(report_id)
     if not record:
         raise HTTPException(status_code=404, detail="Report ID not found")
     

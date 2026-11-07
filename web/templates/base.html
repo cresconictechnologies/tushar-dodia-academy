@@ -48,9 +48,14 @@
 
       <div style="display: flex; align-items: center; gap: 14px;">
         {% if is_admin %}
-        <a href="/admin" style="background: var(--royal-navy); color: #ffffff; font-size: 0.78rem; font-weight: 800; padding: 6px 12px; border-radius: var(--radius-full); text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-          <i class="fa-solid fa-gauge-high" style="color: #fde047;"></i> Admin
-        </a>
+        <div style="display: inline-flex; align-items: center; gap: 6px;">
+          <a href="/admin" style="background: var(--royal-navy); color: #ffffff; font-size: 0.78rem; font-weight: 800; padding: 6px 12px; border-radius: var(--radius-full); text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" title="Executive Admin Dashboard">
+            <i class="fa-solid fa-gauge-high" style="color: #fde047;"></i> Admin Desk
+          </a>
+          <a href="/admin/logout" style="background: rgba(220, 38, 38, 0.1); color: #dc2626; border: 1px solid rgba(220, 38, 38, 0.3); font-size: 0.75rem; font-weight: 700; padding: 6px 10px; border-radius: var(--radius-full); text-decoration: none; display: inline-flex; align-items: center; gap: 4px;" title="Sign Out of Admin Session">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </a>
+        </div>
         {% endif %}
         <a href="https://wa.me/917741823212?text=Hello%20Tushar%20Sir%2C%20I%20would%20like%20to%20consult%20with%20you" target="_blank" class="nav-cta-btn">
           <i class="fa-brands fa-whatsapp"></i>
@@ -114,7 +119,12 @@
           <li><a href="/gallery">100-Photo Field Archive</a></li>
           <li><a href="/videos">160 Video Lessons</a></li>
           <li><a href="/contact">Direct Contact</a></li>
-          <li><a href="/admin">Executive Admin Portal</a></li>
+          {% if is_admin %}
+          <li><a href="/admin"><i class="fa-solid fa-lock-open" style="color: #15803d; font-size: 0.75rem;"></i> Executive Admin Desk</a></li>
+          <li><a href="/admin/logout" style="color: #dc2626;"><i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 0.75rem;"></i> Admin Sign Out</a></li>
+          {% else %}
+          <li><a href="/admin/login"><i class="fa-solid fa-lock" style="font-size: 0.75rem;"></i> Executive Admin Login</a></li>
+          {% endif %}
         </ul>
       </div>
 
@@ -158,7 +168,15 @@
 
     <div class="container footer-bottom">
       <div>&copy; 2026 Mr. Tushar Dodia &amp; Dodia Academy · All Rights Reserved.</div>
-      <div>Director DIN: 10265315 · Dhanpragati Urban Nidhi Ltd · <a href="/admin" style="color: var(--royal-blue); font-weight: 700; text-decoration: none;"><i class="fa-solid fa-lock" style="font-size: 0.72rem;"></i> Executive Desk</a></div>
+      <div>
+        Director DIN: 10265315 · Dhanpragati Urban Nidhi Ltd · 
+        {% if is_admin %}
+        <a href="/admin" style="color: var(--royal-blue); font-weight: 700; text-decoration: none;"><i class="fa-solid fa-gauge-high" style="font-size: 0.72rem;"></i> Executive Desk</a> 
+        (<a href="/admin/logout" style="color: #dc2626; text-decoration: none; font-size: 0.78rem; font-weight: 700;">Logout</a>)
+        {% else %}
+        <a href="/admin/login" style="color: var(--royal-blue); font-weight: 700; text-decoration: none;"><i class="fa-solid fa-lock" style="font-size: 0.72rem;"></i> Executive Login</a>
+        {% endif %}
+      </div>
     </div>
   </footer>
 

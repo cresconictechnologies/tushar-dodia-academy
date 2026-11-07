@@ -29,6 +29,7 @@ from engine.database import (
     get_submission_by_id,
     save_new_submission,
     update_submission,
+    update_submission_pdf,
     delete_submission,
     get_all_inquiries,
     get_inquiry_by_id,
@@ -38,7 +39,8 @@ from engine.database import (
     sync_json_backups,
     db_insert_or_replace_submission_raw,
     db_insert_or_replace_inquiry_raw,
-    get_db_connection
+    get_db_connection,
+    get_database_status
 )
 from engine.security import (
     SecurityHeadersMiddleware,
@@ -102,32 +104,18 @@ def load_submissions() -> List[Dict[str, Any]]:
     return get_all_submissions()
 
 def save_submissions(submissions: List[Dict[str, Any]]):
-    """Synchronizes submissions into SQLite database and updates JSON mirror."""
-    conn = get_db_connection()
-    try:
-        cursor = conn.cursor()
-        for s in submissions:
-            db_insert_or_replace_submission_raw(cursor, s)
-        conn.commit()
-        sync_json_backups(conn)
-    finally:
-        conn.close()
+    """Synchronizes submissions into database and updates JSON mirror."""
+    for s in submissions:
+        save_new_submission(s)
 
 def load_inquiries() -> List[Dict[str, Any]]:
-    """Loads all client inquiries directly from SQLite database."""
+    """Loads all client inquiries directly from database."""
     return get_all_inquiries()
 
 def save_inquiries(inquiries: List[Dict[str, Any]]):
-    """Synchronizes inquiries into SQLite database and updates JSON mirror."""
-    conn = get_db_connection()
-    try:
-        cursor = conn.cursor()
-        for inq in inquiries:
-            db_insert_or_replace_inquiry_raw(cursor, inq)
-        conn.commit()
-        sync_json_backups(conn)
-    finally:
-        conn.close()
+    """Synchronizes inquiries into database and updates JSON mirror."""
+    for inq in inquiries:
+        save_new_inquiry(inq)
 
 CACHED_PHOTOS = load_photos()
 CACHED_VIDEOS = load_videos()
@@ -140,12 +128,14 @@ CACHED_VIDEOS = load_videos()
 @app.get("/healthz")
 async def health_check():
     """
-    Dedicated health check endpoint reporting repository, cache, and system status.
+    Dedicated health check endpoint reporting repository, database engine, cache, and system status.
     """
+    db_status = get_database_status()
     return {
         "status": "healthy",
         "service": "Tushar Dodia Academy Production Portal",
         "timestamp": datetime.now().isoformat(),
+        "database": db_status,
         "repository": {
             "submissions_count": len(load_submissions()),
             "inquiries_count": len(load_inquiries())
@@ -546,7 +536,7 @@ async def api_download_student_report_pdf(report_id: str):
         eval_report = build_evaluation_report_from_record(record)
         await render_report_to_pdf(eval_report, output_filename=custom_pdf_filename)
         record["pdf_filename"] = custom_pdf_filename
-        save_submissions(submissions)
+        update_submission_pdf(report_id, custom_pdf_filename)
         
     return FileResponse(
         path=str(output_pdf),
@@ -722,7 +712,7 @@ async def api_admin_download_pdf(report_id: str, request: Request):
             report = build_evaluation_report_from_record(record)
         await render_report_to_pdf(report, output_filename=custom_pdf_filename)
         record["pdf_filename"] = custom_pdf_filename
-        save_submissions(submissions)
+        update_submission_pdf(report_id, custom_pdf_filename)
     
     return FileResponse(
         path=str(output_pdf),

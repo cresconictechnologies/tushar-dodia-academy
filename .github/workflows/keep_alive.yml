@@ -1,19 +1,41 @@
-name: Render Keep Alive
+name: 24/7 Render Keep-Alive Engine
 
 on:
   schedule:
-    # Run every 10 minutes to prevent Render free-tier 15-minute inactivity sleep
-    - cron: '*/10 * * * *'
+    # Staggered schedules every 5 minutes to ensure Render never spins down
+    - cron: '*/5 * * * *'
+    - cron: '2,7,12,17,22,27,32,37,42,47,52,57 * * * *'
   workflow_dispatch:
+
+concurrency:
+  group: render-keep-alive
+  cancel-in-progress: false
 
 jobs:
   keep_alive:
+    name: Ping Production Health Endpoint
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Ping Academy Health Endpoint
+      - name: Ping Academy Health & Warm Cache
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://tushar-dodia-academy.onrender.com/api/health)
-          echo "Health check HTTP status: $STATUS"
-          if [ "$STATUS" -ne 200 ]; then
-            echo "Warning: Health endpoint returned $STATUS"
+          TARGET_URL="https://tushar-dodia-academy.onrender.com/api/health"
+          echo "Starting Keep-Alive ping sequence against $TARGET_URL at $(date -u)..."
+          
+          # Burst 1: Initial health ping
+          STATUS1=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$TARGET_URL")
+          echo "Ping 1 HTTP Status: $STATUS1"
+          
+          # Sleep 30s to keep connection open across window
+          sleep 30
+          
+          # Burst 2: Second ping to guarantee traffic persistence
+          STATUS2=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$TARGET_URL")
+          echo "Ping 2 HTTP Status: $STATUS2"
+          
+          if [ "$STATUS1" -eq 200 ] || [ "$STATUS2" -eq 200 ]; then
+            echo "SUCCESS: Production portal is active, responsive, and awake!"
+          else
+            echo "WARNING: Both pings returned non-200 ($STATUS1, $STATUS2)"
+            exit 1
           fi

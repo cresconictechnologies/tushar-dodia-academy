@@ -1,0 +1,19 @@
+name: Render Keep Alive
+
+on:
+  schedule:
+    # Run every 10 minutes to prevent Render free-tier 15-minute inactivity sleep
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  keep_alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Academy Health Endpoint
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://tushar-dodia-academy.onrender.com/api/health)
+          echo "Health check HTTP status: $STATUS"
+          if [ "$STATUS" -ne 200 ]; then
+            echo "Warning: Health endpoint returned $STATUS"
+          fi

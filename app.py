@@ -8,10 +8,13 @@ import sys
 import csv
 import json
 import random
+import asyncio
+import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Optional, List
 
+import httpx
 from fastapi import FastAPI, Request, HTTPException, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -61,6 +64,33 @@ app = FastAPI(
     description="Modern Strategy. Ancient Wisdom. Corporate Leadership & Student Psychometric Evaluation.",
     version="2.3.0"
 )
+
+logger = logging.getLogger("dodia.app")
+
+async def keep_alive_background_daemon():
+    """
+    Self-sustaining keep-alive daemon:
+    Sends an external HTTPS request to the public portal URL every 8 minutes
+    through Render's public edge router, resetting the 15-minute inactivity idle
+    timer and preventing container sleep while active.
+    """
+    await asyncio.sleep(45)  # Allow container to complete startup
+    app_url = os.getenv("RENDER_EXTERNAL_URL", "https://tushar-dodia-academy.onrender.com").rstrip("/")
+    health_url = f"{app_url}/api/health"
+    logger.info("Keep-alive self-ping daemon initiated for %s", health_url)
+    
+    async with httpx.AsyncClient(timeout=45.0) as client:
+        while True:
+            await asyncio.sleep(8 * 60)  # Ping every 8 minutes
+            try:
+                r = await client.get(health_url, headers={"User-Agent": "RenderKeepAliveDaemon/2.0"})
+                logger.info("Keep-alive ping sent to %s -> HTTP %s", health_url, r.status_code)
+            except Exception as e:
+                logger.warning("Keep-alive ping warning: %s", e)
+
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(keep_alive_background_daemon())
 
 # Apply OWASP Top 10 Defensive Security Headers
 app.add_middleware(SecurityHeadersMiddleware)
